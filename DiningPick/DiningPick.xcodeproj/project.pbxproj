@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6108CB072ACEA374008E1C7C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6108CB092ACEA374008E1C7C /* InfoPlist.strings */; };
 		61FE8AC72AC26C0700A74D65 /* DiningPickApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FE8AC62AC26C0700A74D65 /* DiningPickApp.swift */; };
 		61FE8AC92AC26C0700A74D65 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FE8AC82AC26C0700A74D65 /* ContentView.swift */; };
-		61FE8ACB2AC26C0700A74D65 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FE8ACA2AC26C0700A74D65 /* Item.swift */; };
 		61FE8ACD2AC26C0900A74D65 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61FE8ACC2AC26C0900A74D65 /* Assets.xcassets */; };
 		61FE8AD02AC26C0900A74D65 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61FE8ACF2AC26C0900A74D65 /* Preview Assets.xcassets */; };
 		61FE8ADA2AC26C0900A74D65 /* DiningPickTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FE8AD92AC26C0900A74D65 /* DiningPickTests.swift */; };
@@ -36,10 +36,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6108CB082ACEA374008E1C7C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		6108CB0A2ACEA376008E1C7C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		61FE8AC32AC26C0700A74D65 /* DiningPick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiningPick.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61FE8AC62AC26C0700A74D65 /* DiningPickApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningPickApp.swift; sourceTree = "<group>"; };
 		61FE8AC82AC26C0700A74D65 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		61FE8ACA2AC26C0700A74D65 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		61FE8ACC2AC26C0900A74D65 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		61FE8ACF2AC26C0900A74D65 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		61FE8AD52AC26C0900A74D65 /* DiningPickTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiningPickTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,9 +76,80 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6108CB062ACEA35D008E1C7C /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				6108CB092ACEA374008E1C7C /* InfoPlist.strings */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
+		6108CB0B2ACEAA31008E1C7C /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				6108CB122ACEAA8C008E1C7C /* ViewModel */,
+				6108CB112ACEAA85008E1C7C /* Model */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		6108CB0C2ACEAA3A008E1C7C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6108CB102ACEAA7C008E1C7C /* Admin */,
+				6108CB0F2ACEAA69008E1C7C /* Provider */,
+				6108CB0E2ACEAA5E008E1C7C /* Customer */,
+				6108CB0D2ACEAA56008E1C7C /* Account */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6108CB0D2ACEAA56008E1C7C /* Account */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		6108CB0E2ACEAA5E008E1C7C /* Customer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Customer;
+			sourceTree = "<group>";
+		};
+		6108CB0F2ACEAA69008E1C7C /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
+		6108CB102ACEAA7C008E1C7C /* Admin */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Admin;
+			sourceTree = "<group>";
+		};
+		6108CB112ACEAA85008E1C7C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6108CB122ACEAA8C008E1C7C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		61FE8ABA2AC26C0600A74D65 = {
 			isa = PBXGroup;
 			children = (
+				6108CB062ACEA35D008E1C7C /* Localization */,
 				61FE8AF22AC26D4600A74D65 /* GoogleService-Info.plist */,
 				61FE8AC52AC26C0700A74D65 /* DiningPick */,
 				61FE8AD82AC26C0900A74D65 /* DiningPickTests */,
@@ -99,9 +171,10 @@
 		61FE8AC52AC26C0700A74D65 /* DiningPick */ = {
 			isa = PBXGroup;
 			children = (
+				6108CB0C2ACEAA3A008E1C7C /* View */,
+				6108CB0B2ACEAA31008E1C7C /* Data */,
 				61FE8AC62AC26C0700A74D65 /* DiningPickApp.swift */,
 				61FE8AC82AC26C0700A74D65 /* ContentView.swift */,
-				61FE8ACA2AC26C0700A74D65 /* Item.swift */,
 				61FE8ACC2AC26C0900A74D65 /* Assets.xcassets */,
 				61FE8ACE2AC26C0900A74D65 /* Preview Content */,
 			);
@@ -219,6 +292,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = 61FE8ABA2AC26C0600A74D65;
 			productRefGroup = 61FE8AC42AC26C0700A74D65 /* Products */;
@@ -238,6 +312,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				61FE8AD02AC26C0900A74D65 /* Preview Assets.xcassets in Resources */,
+				6108CB072ACEA374008E1C7C /* InfoPlist.strings in Resources */,
 				61FE8ACD2AC26C0900A74D65 /* Assets.xcassets in Resources */,
 				61FE8AF32AC26D4600A74D65 /* GoogleService-Info.plist in Resources */,
 			);
@@ -265,7 +340,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				61FE8AC92AC26C0700A74D65 /* ContentView.swift in Sources */,
-				61FE8ACB2AC26C0700A74D65 /* Item.swift in Sources */,
 				61FE8AC72AC26C0700A74D65 /* DiningPickApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -301,6 +375,18 @@
 			targetProxy = 61FE8AE02AC26C0900A74D65 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		6108CB092ACEA374008E1C7C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6108CB082ACEA374008E1C7C /* en */,
+				6108CB0A2ACEA376008E1C7C /* ko */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		61FE8AE72AC26C0900A74D65 /* Debug */ = {

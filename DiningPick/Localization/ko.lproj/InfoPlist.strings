@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  DiningPick
+
+  Created by 한현민 on 10/5/23.
+  
+*/
+"CFBundleDisplayName" = "다이닝픽";
+"CFBundleName" = "다이닝픽";
