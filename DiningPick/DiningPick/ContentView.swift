@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var isLoading: Bool = false
+    @State private var isLoading: Bool = true
     
     var body: some View {
         if !isLoading {
@@ -22,9 +22,7 @@ struct ContentView: View {
                     // TO DO: 뷰모델 fetch 이후 isLoading toggle() 호출
                 }
         } else {
-            VStack {
-                Text("Hello World!")
-            }
+            LoginEmailView()
         }
     }
 }

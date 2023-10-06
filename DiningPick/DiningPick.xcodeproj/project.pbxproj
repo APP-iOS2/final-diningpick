@@ -14,6 +14,10 @@
 		6108CB1A2ACEADB1008E1C7C /* AdminRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6108CB192ACEADB1008E1C7C /* AdminRootView.swift */; };
 		6108CB1C2ACEADD6008E1C7C /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6108CB1B2ACEADD6008E1C7C /* Account.swift */; };
 		6108CB1E2ACEADE2008E1C7C /* AccountStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6108CB1D2ACEADE2008E1C7C /* AccountStore.swift */; };
+		6108CB202ACEB105008E1C7C /* SigninView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6108CB1F2ACEB105008E1C7C /* SigninView.swift */; };
+		6108CB2A2ACF9B88008E1C7C /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6108CB292ACF9B88008E1C7C /* Colors.swift */; };
+		6108CB2F2ACFACC5008E1C7C /* FullSizeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6108CB2D2ACFACC5008E1C7C /* FullSizeTextField.swift */; };
+		6108CB302ACFACC5008E1C7C /* FullSizeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6108CB2E2ACFACC5008E1C7C /* FullSizeButton.swift */; };
 		61FE8AC72AC26C0700A74D65 /* DiningPickApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FE8AC62AC26C0700A74D65 /* DiningPickApp.swift */; };
 		61FE8AC92AC26C0700A74D65 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FE8AC82AC26C0700A74D65 /* ContentView.swift */; };
 		61FE8ACD2AC26C0900A74D65 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61FE8ACC2AC26C0900A74D65 /* Assets.xcassets */; };
@@ -50,6 +54,10 @@
 		6108CB192ACEADB1008E1C7C /* AdminRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminRootView.swift; sourceTree = "<group>"; };
 		6108CB1B2ACEADD6008E1C7C /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		6108CB1D2ACEADE2008E1C7C /* AccountStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStore.swift; sourceTree = "<group>"; };
+		6108CB1F2ACEB105008E1C7C /* SigninView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninView.swift; sourceTree = "<group>"; };
+		6108CB292ACF9B88008E1C7C /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		6108CB2D2ACFACC5008E1C7C /* FullSizeTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullSizeTextField.swift; sourceTree = "<group>"; };
+		6108CB2E2ACFACC5008E1C7C /* FullSizeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullSizeButton.swift; sourceTree = "<group>"; };
 		61FE8AC32AC26C0700A74D65 /* DiningPick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiningPick.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61FE8AC62AC26C0700A74D65 /* DiningPickApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiningPickApp.swift; sourceTree = "<group>"; };
 		61FE8AC82AC26C0700A74D65 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -108,6 +116,7 @@
 		6108CB0C2ACEAA3A008E1C7C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6108CB212ACEBA36008E1C7C /* Components */,
 				6108CB102ACEAA7C008E1C7C /* Admin */,
 				6108CB0F2ACEAA69008E1C7C /* Provider */,
 				6108CB0E2ACEAA5E008E1C7C /* Customer */,
@@ -120,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				6108CB132ACEACEA008E1C7C /* LoginEmailView.swift */,
+				6108CB1F2ACEB105008E1C7C /* SigninView.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -164,6 +174,23 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		6108CB212ACEBA36008E1C7C /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				6108CB2E2ACFACC5008E1C7C /* FullSizeButton.swift */,
+				6108CB2D2ACFACC5008E1C7C /* FullSizeTextField.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		6108CB282ACF9B70008E1C7C /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				6108CB292ACF9B88008E1C7C /* Colors.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		61FE8ABA2AC26C0600A74D65 = {
 			isa = PBXGroup;
 			children = (
@@ -189,6 +216,7 @@
 		61FE8AC52AC26C0700A74D65 /* DiningPick */ = {
 			isa = PBXGroup;
 			children = (
+				6108CB282ACF9B70008E1C7C /* Utils */,
 				6108CB0C2ACEAA3A008E1C7C /* View */,
 				6108CB0B2ACEAA31008E1C7C /* Data */,
 				61FE8AC62AC26C0700A74D65 /* DiningPickApp.swift */,
@@ -359,8 +387,12 @@
 			files = (
 				6108CB162ACEAD98008E1C7C /* CustomerTabView.swift in Sources */,
 				61FE8AC92AC26C0700A74D65 /* ContentView.swift in Sources */,
+				6108CB202ACEB105008E1C7C /* SigninView.swift in Sources */,
 				6108CB1A2ACEADB1008E1C7C /* AdminRootView.swift in Sources */,
+				6108CB302ACFACC5008E1C7C /* FullSizeButton.swift in Sources */,
+				6108CB2F2ACFACC5008E1C7C /* FullSizeTextField.swift in Sources */,
 				6108CB182ACEADA6008E1C7C /* ProviderTabView.swift in Sources */,
+				6108CB2A2ACF9B88008E1C7C /* Colors.swift in Sources */,
 				6108CB142ACEACEA008E1C7C /* LoginEmailView.swift in Sources */,
 				61FE8AC72AC26C0700A74D65 /* DiningPickApp.swift in Sources */,
 				6108CB1C2ACEADD6008E1C7C /* Account.swift in Sources */,
