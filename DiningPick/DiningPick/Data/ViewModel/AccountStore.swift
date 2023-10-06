@@ -6,3 +6,19 @@
 //
 
 import Foundation
+
+class AccountStore: ObservableObject {
+    @Published var account: Account = .sampleCustomer
+    
+    func updateEmail(_ email: String) {
+        account.email = email
+    }
+    
+    func updatePassword(_ password: String) {
+        account.password = password
+    }
+    
+    func updateNickname(_ nickname: String) {
+        account.nickname = nickname
+    }
+}

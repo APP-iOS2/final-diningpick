@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct SigninAccountTypeSelectionView: View {
+    @Environment(\.dismiss) private var dismiss
+    
+    @EnvironmentObject var accountStore: AccountStore
+    
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
@@ -34,10 +38,10 @@ struct SigninAccountTypeSelectionView: View {
                     }
                 })
                 // MARK: 점주 유형 회원가입 버튼
-                Button(action: {
+                NavigationLink {
                     // 점주 회원가입 뷰로 이동
-                    print("pressed")
-                }, label: {
+//                    ExampleView()
+                } label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 15.0)
                             .stroke(.black, lineWidth: 3.0)
@@ -51,9 +55,21 @@ struct SigninAccountTypeSelectionView: View {
                                 .bold()
                         }
                     }
-                })
-
+                }
             }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        HStack {
+                            Image(systemName: "chevron.backward")
+                            Text("로그인")
+                        }
+                    }
+                }
+            }
+            .navigationBarBackButtonHidden()
             .navigationBarTitle("회원가입", displayMode: .inline)
         }
     }
