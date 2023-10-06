@@ -11,16 +11,14 @@ struct FullSizeButton: ViewModifier {
     var color: Color
     
     func body(content: Content) -> some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 8)
+        RoundedRectangle(cornerRadius: 8)
                 .stroke(style: .init(lineWidth: 0.4))
                 .foregroundColor(Color.gray)
                 .background(
                     RoundedRectangle(cornerRadius: 8)
                         .fill(color)
                 )
-                .frame(maxHeight: 60)
-        }
+                .frame(height: 60)
         .overlay {
             content
                 .foregroundStyle(Color.black)
