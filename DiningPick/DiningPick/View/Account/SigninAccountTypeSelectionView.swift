@@ -19,10 +19,9 @@ struct SigninAccountTypeSelectionView: View {
                     .fontWeight(.bold)
                     .font(.system(size: 35))
                     // MARK: 고객 유형 회원가입 버튼
-                Button(action: {
-                    // 고객 회원가입 뷰로 이동
-                    print("pressed")
-                }, label: {
+                NavigationLink {
+                    SigninCustomerView()
+                } label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 15.0)
                             .stroke(.black, lineWidth: 3.0)
@@ -36,9 +35,10 @@ struct SigninAccountTypeSelectionView: View {
                                 .bold()
                         }
                     }
-                })
+                }
                 // MARK: 점주 유형 회원가입 버튼
                 NavigationLink {
+                    FirstSigninProviderView()
                     // 점주 회원가입 뷰로 이동
 //                    ExampleView()
                 } label: {
