@@ -77,7 +77,7 @@ struct LoginEmailView: View {
                     
                     
                     NavigationLink {
-                        SigninView()
+                        SigninAccountTypeSelectionView()
                     } label: {
                         Text("회원가입")
                             .fullSizeButton(color: .lightGray)
@@ -93,6 +93,7 @@ struct LoginEmailView: View {
             }
         }
         .padding()
+        .toolbar(.hidden, for: .navigationBar)
     }
 }
 
