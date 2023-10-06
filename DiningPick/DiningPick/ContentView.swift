@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var isLoading: Bool = true
+    @StateObject var accountStore: AccountStore = .init()
     
+    @State private var isLoading: Bool = true
+        
     var body: some View {
         if !isLoading {
             Image("AppLogo")
@@ -23,6 +25,7 @@ struct ContentView: View {
                 }
         } else {
             LoginEmailView()
+                .environmentObject(accountStore)
         }
     }
 }

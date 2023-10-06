@@ -12,13 +12,13 @@ struct FullSizeButton: ViewModifier {
     
     func body(content: Content) -> some View {
         RoundedRectangle(cornerRadius: 8)
-                .stroke(style: .init(lineWidth: 0.4))
-                .foregroundColor(Color.gray)
-                .background(
-                    RoundedRectangle(cornerRadius: 8)
-                        .fill(color)
-                )
-                .frame(height: 60)
+            .stroke(style: .init(lineWidth: 0.4))
+            .foregroundColor(Color.gray)
+            .background(
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(color)
+            )
+            .frame(height: 60)
         .overlay {
             content
                 .foregroundStyle(Color.black)
