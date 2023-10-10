@@ -57,7 +57,6 @@ struct LoginEmailView: View {
                             
                     Text("이메일 저장")
                 }
-                        
                 HStack(spacing: 6) {
                     Button {
                         enabledSavePassword.toggle()
@@ -72,7 +71,7 @@ struct LoginEmailView: View {
                     Text("자동 로그인")
                 }
             }
-                
+                Spacer()
             VStack(spacing: 16) {
                 NavigationLink {
                     // TO DO: 계정 저장하는 ViewModel에 저장된 계정 타입에 따라 Customer, Provider, Admin 간 분기
@@ -85,7 +84,7 @@ struct LoginEmailView: View {
                     
                     // 자동로그인 체크되어 있으면 비밀번호, 자동로그인 여부까지 UserDefaults로 저장
                     // -> 비밀번호는 암호화를 해야하는가?
-                    
+                    CustomerTabView()
                     
                 } label: {
                     Text("로그인")
@@ -104,6 +103,7 @@ struct LoginEmailView: View {
         
             NavigationLink {
                 // TO DO: 비밀번호 찾기 뷰로 이동
+                FindPassword()
             } label: {
                 Text("로그인에 문제가 생기셨나요?")
                     .foregroundStyle(Color.gray)
@@ -111,7 +111,9 @@ struct LoginEmailView: View {
             
             Spacer()
         }
+        .navigationBarBackButtonHidden()
         .padding(.horizontal, 20)
+        .padding(.bottom, 50)
     }
 }
 

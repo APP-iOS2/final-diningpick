@@ -45,23 +45,28 @@ struct SecondSigninProviderView: View {
                         TextField("가게 주소", text: $checkPassword)
                             .keyboardType(.asciiCapable)
                             .fullSizeTextField()
-                        
-                        TextField("가게 소개\n(최소 10자리 이상을 입력하세요)", text: $checkPassword)
-                            .keyboardType(.asciiCapable)
-                            .fullSizeTextField()
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(lineWidth: 1)
+                                .foregroundStyle(Color.lightGray)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(Color(red: 249/255, green: 249/255, blue: 249/255))
+                                    
+                                )
+                            TextField("   가게 소개(최소 10자리 이상을 입력하세요)", text: $checkPassword, axis: .vertical)
+                                .keyboardType(.asciiCapable)
+                                .frame(height: 100)
+                        }
+                        .frame(height: 150)
                     }
                     
                     VStack(alignment: .leading, spacing: 65) {
-                        HStack {
-                            Image(systemName: "exclamationmark.triangle.fill")
-                            Text("비밀번호는 영문, 숫자 조합으로 6자리 이상이어야 합니다.")
-                                .font(.caption)
-                                .foregroundColor(.gray)
-                        }
                         NavigationLink {
                             // 회원가입 완료 뷰로
+                            CompleteSigninView()
                         } label: {
-                            Text("다음으로")
+                            Text("가입하기")
                                 .fullSizeButton(color: .mediumGray)
                         }
                         .toolbar {
