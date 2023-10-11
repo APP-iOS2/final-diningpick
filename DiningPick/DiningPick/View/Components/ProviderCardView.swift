@@ -19,25 +19,52 @@ import SwiftUI
 
 // NavigationLink의 label에 넣자
 struct ProviderCardView: View {
-    var provider: Provider = .sampleData
-    
+    var provider: Provider
+
     var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                RoundedRectangle(cornerRadius: 8, style: .circular)
-                    .foregroundStyle(Color.blue)
-                    .frame(height: 120)
-                
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("")
+        ZStack {
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(style: StrokeStyle(lineWidth: 1.0))
+                .foregroundStyle(Color.mediumGray)
+                .backgroundStyle(.background)
+
+            VStack(alignment: .leading, spacing: 10) {
+                HStack {
+                    Text(provider.name)
+                        .font(.title)
+                        .fontWeight(.bold)
+                    Spacer()
+                }
+
+                HStack {
+                    Text(provider.fullAddress)
+                    Spacer()
+                }
+
+                HStack(spacing: 12) {
+                    Text(provider.operatingTime)
+                    Divider()
+                        .frame(height: 20)
+                    Text(provider.lastOrderTime)
+                }
+                .fontWeight(.bold)
+
+                HStack {
+                    Text(provider.breakTime)
+                        .fontWeight(.bold)
                 }
             }
+            .padding()
         }
         
-        
+        .frame(maxHeight: 160)
+    }
+
+    fileprivate func getHeight(_ geometry: GeometryProxy) -> CGFloat {
+        return geometry.size.height / 4
     }
 }
 
 #Preview {
-    ProviderCardView()
+    ProviderCardView(provider: .sampleSimpleData)
 }

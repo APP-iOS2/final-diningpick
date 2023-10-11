@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-struct LoginEmailView: View {
-    @EnvironmentObject var accountStore: AccountStore
-    
+struct LoginEmailView: View {    
     @State private var email: String = ""
     @State private var password: String = ""
     
@@ -85,7 +83,7 @@ struct LoginEmailView: View {
                     
                     // 자동로그인 체크되어 있으면 비밀번호, 자동로그인 여부까지 UserDefaults로 저장
                     // -> 비밀번호는 암호화를 해야하는가?
-                    
+                    CustomerTabView()
                     
                 } label: {
                     Text("로그인")
@@ -94,7 +92,6 @@ struct LoginEmailView: View {
                     
                 NavigationLink {
                     SigninAccountTypeSelectionView()
-//                        .environmentObject(accountStore)
                 } label: {
                     Text("회원가입")
                         .fullSizeButton(color: .lightGray)
