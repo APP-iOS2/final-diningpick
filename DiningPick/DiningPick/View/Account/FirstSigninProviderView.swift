@@ -34,6 +34,7 @@ struct FirstSigninProviderView: View {
                             }.frame(minHeight: 20)
                                 .font(.footnote)
                                 .foregroundColor(.red)
+                                .opacity(signupVM.nickName.isEmpty ? 0 : 1)
                         }
                         
                         VStack {
@@ -45,12 +46,12 @@ struct FirstSigninProviderView: View {
                                 HStack {
                                     if !signupVM.isEmailValid() {
                                         Image(systemName: "exclamationmark.triangle")
-                                        Text("이메일 형식이 맞지않습니다.")
+                                        Text("이메일 형식이 올바르지 않습니다.")
                                     }
                                 }.frame(minHeight: 20)
                                     .font(.footnote)
                                     .foregroundColor(.red)
-                                
+                                    .opacity(signupVM.email.isEmpty ? 0 : 1)
                             }
                         }
                         
@@ -63,12 +64,13 @@ struct FirstSigninProviderView: View {
                                 HStack {
                                     if !signupVM.isPasswordValid() {
                                         Image(systemName: "exclamationmark.triangle")
-                                        Text("비밀번호 형식이 맞지않습니다.")
+                                        Text("비밀번호 형식이 올바르지 않습니다.")
                                     }
                                 }
                                 .frame(minHeight: 20)
                                 .font(.footnote)
                                 .foregroundColor(.red)
+                                .opacity(signupVM.password.isEmpty ? 0 : 1)
                             }
                         }
                         
@@ -94,14 +96,6 @@ struct FirstSigninProviderView: View {
                             // 두번째 점주 회원가입 뷰로
                             if signupVM.activateSubmitButton {
                                 SecondSigninProviderView()
-                            } else {
-                                if !signupVM.isEmailValid() {
-                                    Text("이메일 형식이 올바르지 않습니다.")
-                                } else if !signupVM.isPasswordValid() {
-                                    Text("비밀번호 형식이 올바르지 않습니다.")
-                                } else if !signupVM.passwordsMatch() {
-                                    Text("비밀번호가 일치하지 않습니다.")
-                                }
                             }
                             
                         } label: {

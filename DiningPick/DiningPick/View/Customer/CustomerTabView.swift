@@ -34,13 +34,6 @@ struct CustomerTabView: View {
                     Text("내 정보")
                 }
             }
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("로그아웃") {
-                        dismiss()
-                    }
-                }
-            }
         .navigationBarBackButtonHidden()
     }
 }

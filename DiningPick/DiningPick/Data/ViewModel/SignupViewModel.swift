@@ -7,21 +7,21 @@
 
 import Foundation
 
-enum SigninValidError {
-    case nickName
-    case email
-    case password
-    case passwordMatch
-    
-    var errorMessage: String {
-        switch self {
-        case .nickName: return "닉네임은 3글자 이상이여야 합니다."
-        case .email: return "이메일 형식이 올바르지 않습니다."
-        case .password: return "비밀번호 형식이 올바르지 않습니다."
-        case .passwordMatch: return "비밀번호가 일치하지 않습니다."
-        }
-    }
-}
+//enum SigninValidError {
+//    case nickName
+//    case email
+//    case password
+//    case passwordMatch
+//    
+//    var errorMessage: String {
+//        switch self {
+//        case .nickName: return "닉네임은 3글자 이상이여야 합니다."
+//        case .email: return "이메일 형식이 올바르지 않습니다."
+//        case .password: return "비밀번호 형식이 올바르지 않습니다."
+//        case .passwordMatch: return "비밀번호가 일치하지 않습니다."
+//        }
+//    }
+//}
 
 
 class SignupViewModel: ObservableObject {
@@ -58,21 +58,21 @@ class SignupViewModel: ObservableObject {
         return true
     }
     
-    func validateSigninField() -> SigninValidError? {
-        if !isEmailValid() {
-            return .email
-        } 
-        if !isPasswordValid() {
-            return .password
-        }
-        if !passwordsMatch() {
-            return .passwordMatch
-        }
-        if !(nickName.count > 3) {
-            return .nickName
-        }
-        return nil
-    }
+//    func validateSigninField() -> SigninValidError? {
+//        if !isEmailValid() {
+//            return .email
+//        } 
+//        if !isPasswordValid() {
+//            return .password
+//        }
+//        if !passwordsMatch() {
+//            return .passwordMatch
+//        }
+//        if !(nickName.count > 3) {
+//            return .nickName
+//        }
+//        return nil
+//    }
     
     func signUp() {
         // perform signup functions then clear fields

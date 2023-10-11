@@ -113,7 +113,6 @@ struct LoginEmailView: View {
         }
         .navigationBarBackButtonHidden()
         .padding(.horizontal, 20)
-        .padding(.bottom, 50)
     }
 }
 
