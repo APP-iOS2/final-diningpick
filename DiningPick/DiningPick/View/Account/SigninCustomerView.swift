@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SigninCustomerView: View {
-    
     @Environment(\.dismiss) private var dismiss
     
     @State private var nickName: String = ""
@@ -23,7 +22,8 @@ struct SigninCustomerView: View {
         NavigationStack {
             VStack(alignment: .leading) {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("회원 정보를\n입력해 주세요.")
+                    Text("회원 정보를")
+                    Text("입력해 주세요.")
                 }
                 .font(.largeTitle)
                 .fontWeight(.bold)
@@ -46,32 +46,34 @@ struct SigninCustomerView: View {
                         .fullSizeTextField()
                 }
                 
-                VStack(alignment: .leading, spacing: 100) {
-                        HStack {
-                            Image(systemName: "exclamationmark.triangle.fill")
-                            Text("비밀번호는 영문, 숫자 조합으로 6자리 이상이어야 합니다.")
-                                .font(.caption)
-                                .foregroundColor(.gray)
-                        }
-                    NavigationLink {
-                        // 회원가입 완료 뷰로
+                HStack {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                    Text("비밀번호는 영문, 숫자 조합으로 6자리 이상이어야 합니다.")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                }
+                
+                NavigationLink {
+                    // 회원가입 완료 뷰로
+                } label: {
+                    Text("회원가입")
+                        .fullSizeButton(color: .mediumGray)
+                }
+                
+                .padding(.top, 40)
+                
+                Spacer()
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
                     } label: {
-                        Text("회원가입")
-                            .fullSizeButton(color: .mediumGray)
-                    }
-                    .toolbar {
-                        ToolbarItem(placement: .topBarLeading) {
-                            Button {
-                                dismiss()
-                            } label: {
-                                HStack {
-                                    Image(systemName: "chevron.backward")
-                                    Text("유형 선택")
-                                }
-                            }
+                        HStack {
+                            Image(systemName: "chevron.backward")
+                            Text("유형 선택")
                         }
                     }
-                    Spacer()
                 }
             }
             .navigationBarTitle("회원가입", displayMode: .inline)

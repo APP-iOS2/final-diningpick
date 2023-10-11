@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SecondSigninProviderView: View {
-    
     @Environment(\.dismiss) private var dismiss
     
     @State private var nickName: String = ""
@@ -22,10 +21,19 @@ struct SecondSigninProviderView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 25) {
-                    Text("회원 정보를          (2 / 2)\n입력해 주세요.")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
+                VStack(alignment: .leading) {
+                    HStack(alignment: .top) {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("회원 정보를")
+                            Text("입력해 주세요.")
+                        }
+                        Spacer()
+                        Text("(2 / 2)")
+                    }
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding(.bottom)
+                    
                     Text("지역 및 분류")
                         .fontWeight(.bold)
                     // Picker
@@ -51,33 +59,27 @@ struct SecondSigninProviderView: View {
                             .fullSizeTextField()
                     }
                     
-                    VStack(alignment: .leading, spacing: 65) {
-                        HStack {
-                            Image(systemName: "exclamationmark.triangle.fill")
-                            Text("비밀번호는 영문, 숫자 조합으로 6자리 이상이어야 합니다.")
-                                .font(.caption)
-                                .foregroundColor(.gray)
-                        }
-                        NavigationLink {
-                            // 회원가입 완료 뷰로
-                        } label: {
-                            Text("다음으로")
-                                .fullSizeButton(color: .mediumGray)
-                        }
-                        .toolbar {
-                            ToolbarItem(placement: .topBarLeading) {
-                                Button {
-                                    dismiss()
-                                } label: {
-                                    HStack {
-                                        Image(systemName: "chevron.backward")
-                                        Text("전 단계")
-                                    }
+                    NavigationLink {
+                        // 회원가입 완료 뷰로
+                    } label: {
+                        Text("가입하기")
+                            .fullSizeButton(color: .mediumGray)
+                    }
+                    .toolbar {
+                        ToolbarItem(placement: .topBarLeading) {
+                            Button {
+                                dismiss()
+                            } label: {
+                                HStack {
+                                    Image(systemName: "chevron.backward")
+                                    Text("전 단계")
                                 }
                             }
                         }
-                        Spacer()
                     }
+                    .padding(.top, 40)
+                    
+                    Spacer()
                 }
                 .navigationBarTitle("회원가입", displayMode: .inline)
                 .navigationBarBackButtonHidden()
