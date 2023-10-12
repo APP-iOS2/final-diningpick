@@ -55,11 +55,12 @@ struct FindPassword: View {
                                     .keyboardType(.asciiCapable)
                                     .fullSizeButton(color: .accentColor)
                             })
+                        .frame(minWidth: 50)
                         .buttonStyle(.plain)
                     }
                 }
-                VStack(alignment: .leading, spacing: 100) {
-                    
+                
+                VStack(alignment: .leading) {
                     Button(
                         action: {
                             print("ddddds")
@@ -82,7 +83,7 @@ struct FindPassword: View {
                             }
                         }
                     )
-                    .padding(.vertical, 50)
+                    .padding(.top, 50)
                     .disabled((self.emailAdress.count > 0 && self.checkCode.count > 0 ? false : true))
                     .toolbar {
                         ToolbarItem(placement: .topBarLeading) {

@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    // TO DO: 현재 화면에서 customerStore의 fetch 함수 호출하기
     @StateObject var accountStore: AccountStore = .init()
+    @StateObject var customerStore: CustomerStore = .init()
+    @StateObject var providerStore: ProviderStore = .init()
     
     @State private var isLoading: Bool = true
         
@@ -26,6 +29,8 @@ struct ContentView: View {
         } else {
             LoginEmailView()
                 .environmentObject(accountStore)
+                .environmentObject(customerStore)
+                .environmentObject(providerStore)
         }
     }
 }

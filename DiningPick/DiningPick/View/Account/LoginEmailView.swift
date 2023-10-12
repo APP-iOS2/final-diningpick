@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-struct LoginEmailView: View {
-    @EnvironmentObject var accountStore: AccountStore
-    
+struct LoginEmailView: View {    
     @State private var email: String = ""
     @State private var password: String = ""
     
@@ -93,7 +91,6 @@ struct LoginEmailView: View {
                     
                 NavigationLink {
                     SigninAccountTypeSelectionView()
-//                        .environmentObject(accountStore)
                 } label: {
                     Text("회원가입")
                         .fullSizeButton(color: .lightGray)

@@ -9,125 +9,73 @@ import SwiftUI
 
 struct FirstSigninProviderView: View {
     
-    @StateObject private var signupVM: SignupViewModel = .init()
+    @StateObject private var signupVM: SignupStore = .init()
     
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading) {
-                    Text("회원 정보를          (1 / 2)\n입력해 주세요.")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                    VStack(spacing: 10) {
-                        VStack(alignment: .leading) {
-                            TextField("닉네임", text: $signupVM.nickName)
-                                .keyboardType(.default)
-                                .fullSizeTextField()
-                            
-                            HStack {
-                                if !(signupVM.nickName.count > 3) {
-                                    Image(systemName: "exclamationmark.triangle")
-                                    Text("닉네임은 4자리 이상이여야 합니다.")
-                                }
-                            }.frame(minHeight: 20)
-                                .font(.footnote)
-                                .foregroundColor(.red)
-                                .opacity(signupVM.nickName.isEmpty ? 0 : 1)
-                        }
+            VStack(alignment: .leading) {
+                HStack(alignment: .top) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("회원 정보를")
+                        Text("입력해 주세요.")
+                    }
+                    Spacer()
+                    Text("(1 / 2)")
+                }
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                    
+                VStack(spacing: 15) {
+                    TextField("닉네임", text: $signupVM.nickName)
+                        .keyboardType(.emailAddress)
+                        .fullSizeTextField()
                         
-                        VStack {
-                            VStack(alignment: .leading) {
-                                TextField("이메일 주소", text: $signupVM.email)
-                                    .keyboardType(.emailAddress)
-                                    .fullSizeTextField()
-                                
-                                HStack {
-                                    if !signupVM.isEmailValid() {
-                                        Image(systemName: "exclamationmark.triangle")
-                                        Text("이메일 형식이 올바르지 않습니다.")
-                                    }
-                                }.frame(minHeight: 20)
-                                    .font(.footnote)
-                                    .foregroundColor(.red)
-                                    .opacity(signupVM.email.isEmpty ? 0 : 1)
-                            }
-                        }
+                    TextField("이메일 주소", text: $signupVM.email)
+                        .keyboardType(.emailAddress)
+                        .fullSizeTextField()
                         
-                        VStack {
-                            VStack(alignment: .leading) {
-                                SecureField("비밀번호", text: $signupVM.password)
-                                    .keyboardType(.asciiCapable)
-                                    .fullSizeTextField()
-                                
-                                HStack {
-                                    if !signupVM.isPasswordValid() {
-                                        Image(systemName: "exclamationmark.triangle")
-                                        Text("비밀번호 형식이 올바르지 않습니다.")
-                                    }
-                                }
-                                .frame(minHeight: 20)
-                                .font(.footnote)
-                                .foregroundColor(.red)
-                                .opacity(signupVM.password.isEmpty ? 0 : 1)
-                            }
-                        }
+                    SecureField("비밀번호", text: $signupVM.password)
+                        .keyboardType(.asciiCapable)
+                        .fullSizeTextField()
                         
-                        VStack {
-                            VStack(alignment: .leading) {
-                                SecureField("비밀번호 확인", text: $signupVM.confirmPw)
-                                    .keyboardType(.asciiCapable)
-                                    .fullSizeTextField()
-                                
-                                HStack {
-                                    if !signupVM.passwordsMatch() {
-                                        Image(systemName: "exclamationmark.triangle")
-                                        Text("비밀번호가 일치하지 않습니다.")
-                                    }
-                                }
-                                        .frame(minHeight: 20)
-                                        .font(.footnote)
-                                        .foregroundColor(.red)
-                                }
-                            }
-                        
-                        NavigationLink {
-                            // 두번째 점주 회원가입 뷰로
-                            if signupVM.activateSubmitButton {
-                                SecondSigninProviderView()
-                            }
-                            
+                    SecureField("비밀번호 확인", text: $signupVM.confirmPassword)
+                        .keyboardType(.asciiCapable)
+                        .fullSizeTextField()
+                }
+                
+                HStack {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                    Text("비밀번호는 영문, 숫자 조합으로 6자리 이상이어야 합니다.")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                }
+                
+                NavigationLink {
+                    // 두번째 점주 회원가입 뷰로
+                    SecondSigninProviderView()
+                } label: {
+                    Text("다음으로")
+                        .fullSizeButton(color: .mediumGray)
+                }
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button {
+                            dismiss()
                         } label: {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(style: .init(lineWidth: 0.4))
-                                    .foregroundColor(signupVM.activateSubmitButton ? Color.themeBaseColor : Color.gray)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 8)
-                                            .foregroundColor(signupVM.activateSubmitButton ? Color.themeBaseColor : Color.gray)
-                                    )
-                                    .frame(height: 60)
-                                Text("다음으로")
-                                    .foregroundColor(.black)
+                            HStack {
+                                Image(systemName: "chevron.backward")
+                                Text("유형 선택")
                             }
                         }
-                        .toolbar {
-                            ToolbarItem(placement: .topBarLeading) {
-                                Button {
-                                    dismiss()
-                                } label: {
-                                    HStack {
-                                        Image(systemName: "chevron.backward")
-                                        Text("유형 선택")
-                                    }
-                                }
-                            }
-                        }
-                        Spacer()
                     }
                 }
+                .padding(.top, 40)
+                
+                Spacer()
             }
+            
             .navigationBarTitle("회원가입", displayMode: .inline)
             .navigationBarBackButtonHidden()
             .padding()

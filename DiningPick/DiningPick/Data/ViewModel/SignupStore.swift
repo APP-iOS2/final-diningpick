@@ -24,17 +24,17 @@ import Foundation
 //}
 
 
-class SignupViewModel: ObservableObject {
+class SignupStore: ObservableObject {
     
     @Published var nickName: String = ""
     @Published var email: String = ""
     @Published var password: String = ""
-    @Published var confirmPw: String = ""
+    @Published var confirmPassword: String = ""
     
     // MARK: - Validation Functions
     
     func passwordsMatch() -> Bool {
-        password == confirmPw
+        password == confirmPassword
     }
     
     func isPasswordValid() -> Bool {
@@ -58,27 +58,11 @@ class SignupViewModel: ObservableObject {
         return true
     }
     
-//    func validateSigninField() -> SigninValidError? {
-//        if !isEmailValid() {
-//            return .email
-//        } 
-//        if !isPasswordValid() {
-//            return .password
-//        }
-//        if !passwordsMatch() {
-//            return .passwordMatch
-//        }
-//        if !(nickName.count > 3) {
-//            return .nickName
-//        }
-//        return nil
-//    }
-    
     func signUp() {
         // perform signup functions then clear fields
         email = ""
         password = ""
-        confirmPw = ""
+        confirmPassword = ""
     }
 }
 
