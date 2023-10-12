@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct FindPassword: View {
-    
-    @State private var emailAdress: String   = ""
+    @State private var emailAdress: String = ""
     @State private var checkCode: String = ""
     
     @Environment(\.dismiss) private var dismiss
@@ -27,7 +26,6 @@ struct FindPassword: View {
                 .fontWeight(.bold)
                 
                 VStack(alignment: .leading, spacing: 15) {
-
                     TextField("이메일 주소", text: $emailAdress)
                         .keyboardType(.emailAddress)
                         .fullSizeTextField()
@@ -44,7 +42,7 @@ struct FindPassword: View {
                                 .keyboardType(.asciiCapable)
                                 .fullSizeTextField()
                         }
-                        .frame(width: 250,height: 60)
+                        .frame(width: 250, height: 60)
                         
                         Button(
                             action: {
@@ -54,7 +52,8 @@ struct FindPassword: View {
                                 Text("발송")
                                     .keyboardType(.asciiCapable)
                                     .fullSizeButton(color: .accentColor)
-                            })
+                            }
+                        )
                         .frame(minWidth: 50)
                         .buttonStyle(.plain)
                     }
@@ -84,7 +83,7 @@ struct FindPassword: View {
                         }
                     )
                     .padding(.top, 50)
-                    .disabled((self.emailAdress.count > 0 && self.checkCode.count > 0 ? false : true))
+                    .disabled(self.emailAdress.count > 0 && self.checkCode.count > 0 ? false : true)
                     .toolbar {
                         ToolbarItem(placement: .topBarLeading) {
                             Button {
@@ -110,4 +109,5 @@ struct FindPassword: View {
 #Preview {
     FindPassword()
 }
-//foregroundColor((self.emailAdress.count > 0 && self.checkCode.count > 0) ? Color.themeBaseColor : Color.blue)
+
+// foregroundColor((self.emailAdress.count > 0 && self.checkCode.count > 0) ? Color.themeBaseColor : Color.blue)

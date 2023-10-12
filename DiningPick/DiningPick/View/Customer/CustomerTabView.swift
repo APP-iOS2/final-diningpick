@@ -48,10 +48,6 @@ struct CustomerTabView: View {
         .toolbar {
             if currentIndex == 2 {
                 ToolbarItem(placement: .topBarTrailing) {
-                    EditButton()
-                }
-                
-                ToolbarItem(placement: .topBarLeading) {
                     Button("추가") {
                         isShowingAddSheet.toggle()
                     }
