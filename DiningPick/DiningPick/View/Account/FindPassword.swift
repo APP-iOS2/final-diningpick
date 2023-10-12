@@ -14,8 +14,8 @@ struct FindPassword: View {
     
     @Environment(\.dismiss) private var dismiss
     
-    @State private var enabledSaveEmail: Bool = false
-    @State private var enabledSavePassword: Bool = false
+//    @State private var enabledSaveEmail: Bool = false
+//    @State private var enabledSavePassword: Bool = false
     
     var body: some View {
         NavigationStack {
