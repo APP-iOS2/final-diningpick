@@ -98,6 +98,7 @@ struct SigninCustomerView: View {
                 }
                 
                 .padding(.top, 40)
+                .disabled(!signupVM.activateSubmitButton)
                 
                 Spacer()
             }

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CustomerFeedView: View {
     var body: some View {
-        NavigationView {
             NavigationStack {
                 VStack(alignment: .leading) {
                     HStack {
@@ -39,7 +38,6 @@ struct CustomerFeedView: View {
             .navigationBarTitle("피드", displayMode: .inline)
         }
     }
-}
 
 #Preview {
     CustomerFeedView()
