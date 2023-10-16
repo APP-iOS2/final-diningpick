@@ -6,85 +6,93 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct CutomerFeedBackView: View {
     
     @State private var enabledProviderButton: Bool = false
     @State private var enabledAdminButton: Bool = false
     
-    @State private var openPhoto = false
-    @State private var image = UIImage()
+    @State private var selectedItem: PhotosPickerItem?
+    @State private var selectedPhoto: UIImage?
+    @State private var selectedPhotoArr: [Int] = []
+    
+    @State private var feedBackText: String = ""
     
     var body: some View {
         NavigationStack {
-                HStack {
-                    VStack(alignment: .leading, spacing: 20) {
-                        Text("건의할 대상")
-                            .bold()
-                        
-                        HStack(spacing: 30) {
-                            HStack {
-                                Button {
-                                    enabledProviderButton.toggle()
-                                } label: {
-                                    if !enabledProviderButton {
-                                        Image(systemName: "square")
-                                    } else {
-                                        Image(systemName: "checkmark.square.fill")
-                                    }
+            HStack {
+                VStack(alignment: .leading, spacing: 20) {
+                    Text("건의할 대상")
+                        .bold()
+                    
+                    HStack(spacing: 30) {
+                        HStack {
+                            Button {
+                                enabledProviderButton.toggle()
+                            } label: {
+                                if !enabledProviderButton {
+                                    Image(systemName: "square")
+                                } else {
+                                    Image(systemName: "checkmark.square.fill")
+                                }
                             }
-                                Text("사장님")
-                            }
-                                    
-                            
-                            
-                            
-                            HStack {
-                                Button {
-                                    enabledAdminButton.toggle()
-                                } label: {
-                                    if !enabledAdminButton {
-                                        Image(systemName: "square")
-                                    } else {
-                                        Image(systemName: "checkmark.square.fill")
-                                    }
-                            }
-                                Text("관리자")
-                            }
-                            
-                            
+                            Text("사장님")
+                                
                         }
-
+                        HStack {
+                            Button {
+                                enabledAdminButton.toggle()
+                            } label: {
+                                if !enabledAdminButton {
+                                    Image(systemName: "square")
+                                } else {
+                                    Image(systemName: "checkmark.square.fill")
+                                }
+                            }
+                            Text("관리자")
+                        }
                     }
-                    .padding(.horizontal)
-                    Spacer()
+                    .padding(.trailing, 140)
                 }
                 .feedBackCard(maxHeight: 100)
-                .padding(.vertical)
+                .padding(.vertical, 10)
+            }
             VStack {
-                Button {
-                    self.openPhoto = true
-                } label: {
-                    VStack {
-                        Image(systemName: "photo")
-                            .padding(.vertical, 10)
-                        Text("탭하여 이미지를 추가해보세요")
-                        Image(uiImage: self.image)
-                                            .resizable()
-                                            .scaledToFit()
-                        
+                
+                PhotosPicker(selection: $selectedItem, matching: .images) {
+                    if selectedItem == nil {
+                        Label("사진을 선택해주세요.", systemImage: "photo")
+                    } else {
+                        if let photo = selectedPhoto {
+                            Image(uiImage: photo)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 200, height: 200)
+
+                        }
                     }
-                    .foregroundColor(.black)
-                    .opacity(0.3)
-                    .feedBackCard(maxHeight: 150)
+                        
+                }
+                .foregroundColor(.black)
+                .opacity(0.3)
+                .feedBackCard(maxHeight: 200)
+            }
+            .onChange(of: selectedItem) { newItem in
+                        Task {
+                            guard let imageData = try? await newItem?.loadTransferable(type: Data.self) else { return }
+                            selectedPhoto = UIImage(data: imageData)
+                        }
+                    }
+            VStack {
+                TextField(text: $feedBackText) {
                     
                 }
-                .sheet(isPresented: $openPhoto) {
-                    ImagePicker(sourceType: .photoLibrary, selectedImage: self.$image)
-                }
+                .feedBackCard(maxHeight: 300)
+                .padding(.vertical, 10)
             }
-            Text("ss")
-                .feedBackCard(maxHeight: 350)
+            
+            .navigationBarTitle("구들장흑도야지", displayMode: .inline)
         }
         
     }
@@ -93,3 +101,4 @@ struct CutomerFeedBackView: View {
 #Preview {
     CutomerFeedBackView()
 }
+//selectedPhotoArr.append(1)
