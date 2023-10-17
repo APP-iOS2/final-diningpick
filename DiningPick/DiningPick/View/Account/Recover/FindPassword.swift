@@ -20,15 +20,17 @@ struct FindPassword: View {
         NavigationStack {
             VStack(alignment: .leading) {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("이메일 인증을\n완료해 주세요.")
+                    Text("이메일 인증을")
+                    Text("완료해 주세요.")
                 }
-                .font(.largeTitle)
+                .font(.title)
                 .fontWeight(.bold)
                 
                 VStack(alignment: .leading, spacing: 15) {
                     TextField("이메일 주소", text: $emailAdress)
                         .keyboardType(.emailAddress)
-                        .fullSizeTextField()
+                        .fullSizeTextField(size: .regular)
+                    
                     HStack(spacing: 20) {
                         ZStack {
                             RoundedRectangle(cornerRadius: 8)
@@ -38,6 +40,7 @@ struct FindPassword: View {
                                     RoundedRectangle(cornerRadius: 8)
                                         .fill(Color(red: 249/255, green: 249/255, blue: 249/255))
                                 )
+                            
                             TextField("인증코드", text: $checkCode)
                                 .keyboardType(.asciiCapable)
                                 .fullSizeTextField()

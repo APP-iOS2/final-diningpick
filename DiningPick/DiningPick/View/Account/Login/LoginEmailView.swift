@@ -21,14 +21,14 @@ struct LoginEmailView: View {
                     Text("이메일, 비밀번호를")
                     Text("입력해주세요.")
                 }
-                .font(.largeTitle)
+                .font(.title)
                 .fontWeight(.bold)
                 
                 Spacer()
             }
             .padding(.top, 60)
             
-            VStack(spacing: 10) {
+            VStack(spacing: 20) {
                 TextField("이메일", text: $email)
                     .keyboardType(.emailAddress)
                     .fullSizeTextField()
@@ -90,7 +90,7 @@ struct LoginEmailView: View {
                 }
                     
                 NavigationLink {
-                    SigninAccountTypeSelectionView()
+                    SignupAccountTypeSelectionView()
                 } label: {
                     Text("회원가입")
                         .fullSizeButton(color: .lightGray)

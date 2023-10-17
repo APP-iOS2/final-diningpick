@@ -12,8 +12,6 @@ struct CustomerFindStoreView: View {
     @EnvironmentObject var providerStore: ProviderStore
     @StateObject var searchOptionStore: SearchOptionStore = .init()
     
-    @Binding var isShowingSheet: Bool
-    
     // 현재 표시중인 Picker
     @State var isShowingPicker: PickerName = .province
     @State var isShowingPickerSheet: Bool = false
@@ -94,13 +92,6 @@ struct CustomerFindStoreView: View {
                 Spacer()
             }
             .padding()
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("취소") {
-                        isShowingSheet.toggle()
-                    }
-                }
-            }
             .sheet(isPresented: $isShowingPickerSheet, content: {
                 NavigationStack {
                     VStack {
@@ -134,9 +125,6 @@ struct CustomerFindStoreView: View {
                                 }
                             })
                             .pickerStyle(WheelPickerStyle())
-                            
-                        default:
-                            Text("오류")
                         }
                     }
                     .toolbar {
@@ -146,11 +134,10 @@ struct CustomerFindStoreView: View {
                             }
                         }
                     }
-                    .navigationTitle("지역 선택")
+                    .navigationTitle("\(isShowingPicker.description)")
                     .navigationBarTitleDisplayMode(.inline)
                 }
-                
-                .presentationDetents([.medium])
+                .presentationDetents([.height(250.0)])
             })
             .navigationTitle("매장 찾기")
             .navigationBarTitleDisplayMode(.inline)
@@ -159,9 +146,22 @@ struct CustomerFindStoreView: View {
     
     enum PickerName {
         case province, city, category, sorting
+        
+        var description: String {
+            switch self {
+            case .province:
+                return "지역 선택"
+            case .city:
+                return "시/군/구 선택"
+            case .category:
+                return "종류 선택"
+            case .sorting:
+                return "정렬 방법 선택"
+            }
+        }
     }
 }
 
 #Preview {
-    CustomerFindStoreView(isShowingSheet: .constant(true))
+    CustomerFindStoreView()
 }

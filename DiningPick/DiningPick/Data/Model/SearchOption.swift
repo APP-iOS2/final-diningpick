@@ -5,6 +5,8 @@
 //  Created by 한현민 on 10/12/23.
 //
 
+// TO DO: 각 pickable 내용 채워넣기
+
 import Foundation
 
 struct SearchOption {

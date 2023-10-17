@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct CustomerStoreListView: View {
-    
-    @State private var isPresentingEditView = false
+    @State private var isShowingSheet = false
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -18,39 +17,25 @@ struct CustomerStoreListView: View {
                 Text("현재 구독 중인 가게가 없어요.")
                     .opacity(0.4)
                 
-                    
-                    .sheet(isPresented: $isPresentingEditView) {
+                    .sheet(isPresented: $isShowingSheet) {
                         NavigationStack {
-                            CustomerStoreListEditView()
+                            CustomerFindStoreView()
                                 .navigationBarTitle("매장 찾기", displayMode: .inline)
                                 .toolbar {
-                                    ToolbarItem(placement: .topBarLeading) {
-                                        Button("취소") {
-                                            isPresentingEditView = false
-                                        }
-                                    }
                                     ToolbarItem(placement: .topBarTrailing) {
                                         Button("완료") {
-                                            isPresentingEditView = false
+                                            isShowingSheet = false
                                         }
                                     }
                                 }
                         }
                     }
-                
-            }
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("로그아웃") {
-                        dismiss()
-                    }
-                }
             }
             .navigationBarTitle("다이닝픽", displayMode: .inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("추가") {
-                        isPresentingEditView = true
+                        isShowingSheet = true
                     }
                 }
             }
