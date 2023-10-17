@@ -7,26 +7,48 @@
 
 import SwiftUI
 
+enum TextFieldSize {
+    case regular, big
+
+    var numeric: CGFloat {
+        switch self {
+        case .regular:
+            return 60
+        case .big:
+            return 120
+        }
+    }
+}
+
 struct FullSizeTextField: ViewModifier {
+    var size: TextFieldSize
+
     func body(content: Content) -> some View {
         ZStack {
             RoundedRectangle(cornerRadius: 8)
-                .stroke(lineWidth: 1)
                 .foregroundStyle(Color.lightGray)
                 .background(
                     RoundedRectangle(cornerRadius: 8)
-                        .fill(Color(red: 249/255, green: 249/255, blue: 249/255))
+                        .fill(Color.lightGray)
                 )
-                
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.gray, lineWidth: 0.4) // 테두리 추가
+                )
+                .frame(height: size.numeric)
+
             content
-                .padding()
+                .frame(height: size.numeric, alignment: .topLeading)
+                .padding(.top, 40)
+                .padding(.horizontal, 20)
+                .foregroundStyle(Color.black)
         }
-        .frame(height: 60)
+        .frame(height: size.numeric)
     }
 }
 
 extension View {
-    func fullSizeTextField() -> some View {
-        modifier(FullSizeTextField())
+    func fullSizeTextField(size: TextFieldSize = .regular) -> some View {
+        modifier(FullSizeTextField(size: size))
     }
 }

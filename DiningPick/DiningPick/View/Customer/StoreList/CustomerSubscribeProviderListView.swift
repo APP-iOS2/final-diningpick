@@ -43,7 +43,7 @@ struct CustomerSubscribeProviderListView: View {
             }
         }
         .sheet(isPresented: $isShowingSheet, content: {
-            CustomerFindStoreView(isShowingSheet: $isShowingSheet)
+            CustomerFindStoreView()
         })
         .refreshable {
             customerStore.fetchData()
