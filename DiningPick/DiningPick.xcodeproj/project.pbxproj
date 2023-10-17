@@ -53,7 +53,6 @@
 		FE91E26A2AD3FD3100A39BCE /* CustomerStoreListEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE91E2692AD3FD3100A39BCE /* CustomerStoreListEditView.swift */; };
 		FEF4C7A62AD7C87F00DC6A8D /* CutomerFeedBackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF4C7A52AD7C87F00DC6A8D /* CutomerFeedBackView.swift */; };
 		FEF4C7A82AD7CD6100DC6A8D /* FeedBackCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF4C7A72AD7CD6100DC6A8D /* FeedBackCard.swift */; };
-		FEF4C7AA2AD7FAF200DC6A8D /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF4C7A92AD7FAF200DC6A8D /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,7 +123,6 @@
 		FE91E2692AD3FD3100A39BCE /* CustomerStoreListEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerStoreListEditView.swift; sourceTree = "<group>"; };
 		FEF4C7A52AD7C87F00DC6A8D /* CutomerFeedBackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutomerFeedBackView.swift; sourceTree = "<group>"; };
 		FEF4C7A72AD7CD6100DC6A8D /* FeedBackCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBackCard.swift; sourceTree = "<group>"; };
-		FEF4C7A92AD7FAF200DC6A8D /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,7 +247,6 @@
 				61E0B8ED2AD6C0E8003375EC /* ProviderStore.swift */,
 				61FEB8AD2AD7E33200170B0D /* SearchOptionStore.swift */,
 				61E0B8E72AD6994A003375EC /* CustomerStore.swift */,
-				FEF4C7A92AD7FAF200DC6A8D /* ImagePicker.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -478,7 +475,6 @@
 				FE91E2682AD3F6CF00A39BCE /* CustomerProfileView.swift in Sources */,
 				61E3E6802AD7BD44006FDE26 /* SearchBar.swift in Sources */,
 				FEF4C7A82AD7CD6100DC6A8D /* FeedBackCard.swift in Sources */,
-				FEF4C7AA2AD7FAF200DC6A8D /* ImagePicker.swift in Sources */,
 				FE2EC6DA2ACFE63600D871E6 /* SecondSigninProviderView.swift in Sources */,
 				61E0B8E82AD6994A003375EC /* CustomerStore.swift in Sources */,
 				FEF4C7A62AD7C87F00DC6A8D /* CutomerFeedBackView.swift in Sources */,
