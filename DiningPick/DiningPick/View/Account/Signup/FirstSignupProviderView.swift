@@ -83,8 +83,6 @@ struct FirstSignupProviderView: View {
                 }
                 .padding(.bottom)
                 
-                Spacer()
-                
                 NavigationLink {
                     SecondSignupProviderView(signupVM: signupVM)
                 } label: {

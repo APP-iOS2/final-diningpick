@@ -82,8 +82,6 @@ struct SignupCustomerView: View {
                 }
                 .padding(.bottom)
                 
-                Spacer()
-                
                 Button {
                     // 회원가입 완료 뷰로
                     signupVM.saveSignupData()
