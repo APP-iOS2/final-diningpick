@@ -36,7 +36,7 @@ struct CustomerFindStoreView: View {
                             Image(systemName: "arrowtriangle.down.fill")
                                 .foregroundStyle(Color.gray)
                             
-                            Text("\(searchOptionStore.option.province.picked)")
+                            Text("\(searchOptionStore.option.location.province.picked)")
                                 .foregroundStyle(Color.primary)
                         }
                     }
@@ -50,7 +50,7 @@ struct CustomerFindStoreView: View {
                             Image(systemName: "arrowtriangle.down.fill")
                                 .foregroundStyle(Color.gray)
                             
-                            Text("\(searchOptionStore.option.city.picked)")
+                            Text("\(searchOptionStore.option.location.city.picked)")
                                 .foregroundStyle(Color.primary)
                         }
                     }
@@ -64,7 +64,7 @@ struct CustomerFindStoreView: View {
                             Image(systemName: "arrowtriangle.down.fill")
                                 .foregroundStyle(Color.gray)
                             
-                            Text("\(searchOptionStore.option.category.picked)")
+                            Text("\(searchOptionStore.option.location.category.picked)")
                                 .foregroundStyle(Color.primary)
                         }
                     }
@@ -97,7 +97,7 @@ struct CustomerFindStoreView: View {
                     VStack {
                         switch isShowingPicker {
                         case .province:
-                            Picker("지역 선택", selection: $searchOptionStore.option.province.picked, content: {
+                            Picker("지역 선택", selection: $searchOptionStore.option.location.province.picked, content: {
                                 ForEach(Province.pickable, id: \.self) { item in
                                     Text("\(item)")
                                 }
@@ -106,14 +106,14 @@ struct CustomerFindStoreView: View {
                             .pickerStyle(WheelPickerStyle())
                             
                         case .city:
-                            Picker("시/구 선택", selection: $searchOptionStore.option.city.picked, content: { ForEach(City.pickable[searchOptionStore.option.province.picked] ?? [], id: \.self) { item in
+                            Picker("시/구 선택", selection: $searchOptionStore.option.location.city.picked, content: { ForEach(City.pickable[searchOptionStore.option.location.province.picked] ?? [], id: \.self) { item in
                                     Text("\(item)")
                                 }
                             })
                             .pickerStyle(WheelPickerStyle())
                             
                         case .category:
-                            Picker("맛집 카테고리 선택", selection: $searchOptionStore.option.category.picked, content: { ForEach(Category.pickable, id: \.self) { item in
+                            Picker("맛집 카테고리 선택", selection: $searchOptionStore.option.location.category.picked, content: { ForEach(Category.pickable, id: \.self) { item in
                                     Text("\(item)")
                                 }
                             })
@@ -164,4 +164,6 @@ struct CustomerFindStoreView: View {
 
 #Preview {
     CustomerFindStoreView()
+        .environmentObject(CustomerStore())
+        .environmentObject(ProviderStore())
 }

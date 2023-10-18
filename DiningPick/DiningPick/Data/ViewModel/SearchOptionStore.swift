@@ -12,15 +12,15 @@ class SearchOptionStore: ObservableObject {
     
     func applyOption(province: Province?, city: City?, category: Category?) {
         if let province {
-            option.province = province
+            option.location.province = province
         }
         
         if let city {
-            option.city = city
+            option.location.city = city
         }
         
         if let category {
-            option.category = category
+            option.location.category = category
         }
     }
 }

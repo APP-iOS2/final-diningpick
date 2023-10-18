@@ -11,14 +11,11 @@ struct Provider: Identifiable, Codable {
     var id: String
     var enrollNumber: String // 사업자 등록번호
     var name: String
-    var province: String
-    var city: String
-    var addressDetail: String
+    var location: Location
     var time: Time
-    var mealType: String
 
     var fullAddress: String {
-        "\(province) \(city) \(addressDetail)"
+        "\(location.province) \(location.city)"
     }
 
     // 요일별로 영업시간 바뀔 수 있음에 유의!
@@ -50,11 +47,11 @@ struct Time: Codable {
 
 // TO DO: Provider 내용물을 Customer와 데이터 모델 통해 연결짓기
 extension Provider {
-    static let sampleSimpleData: Provider = .init(id: "1A23D4F", enrollNumber: "1234-5678-9012", name: "구들장흑도야지", province: "경기도", city: "용인시", addressDetail: "수지구 용인시 죽전로 140 103", time: .init(openTime: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 30000), closeTime: .now, lastOrderTime: .now, breakTimeStart: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 30000), breakTimeEnd: .now), mealType: "한식")
+    static let sampleSimpleData: Provider = .init(id: "1A23D4F", enrollNumber: "1234-5678-9012", name: "구들장흑도야지", location: .init(province: .init(picked: "경기도"), city: .init(picked: "용인시"), category: .init(picked: "한식")), time: .init(openTime: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 30000), closeTime: .now, lastOrderTime: .now, breakTimeStart: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 30000), breakTimeEnd: .now))
 
     static let sampleData: [Provider] = [
-        .init(id: "1A23D4F", enrollNumber: "1234-5678-9012", name: "구들장흑도야지", province: "경기도", city: "용인시", addressDetail: "수지구 용인시 죽전로 140 103", time: .init(openTime: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 30000), closeTime: .now, lastOrderTime: .now, breakTimeStart: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 30000), breakTimeEnd: .now), mealType: "한식"),
+        .init(id: "1A23D4F", enrollNumber: "1234-5678-9012", name: "구들장흑도야지", location: .init(province: .init(picked: "경기도"), city: .init(picked: "용인시"), category: .init(picked: "한식")), time: .init(openTime: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 30000), closeTime: .now, lastOrderTime: .now, breakTimeStart: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 30000), breakTimeEnd: .now)),
 
-        .init(id: "3BA3D4F", enrollNumber: "1234-5678-1232", name: "한솥도시락 죽전단국대점", province: "경기도", city: "용인시", addressDetail: "수지구 용인시 죽전로 140 103", time: .init(openTime: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 30000), closeTime: .now, lastOrderTime: .now, breakTimeStart: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 30000), breakTimeEnd: .now), mealType: "한식"),
+        .init(id: "3BA3D4F", enrollNumber: "1234-5678-1232", name: "한솥도시락 죽전단국대점", location: .init(province: .init(picked: "경기도"), city: .init(picked: "용인시"), category: .init(picked: "한식")), time: .init(openTime: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 30000), closeTime: .now, lastOrderTime: .now, breakTimeStart: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 30000), breakTimeEnd: .now))
     ]
 }

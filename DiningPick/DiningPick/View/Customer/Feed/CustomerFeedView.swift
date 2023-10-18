@@ -55,6 +55,7 @@ struct CustomerFeedView: View {
                         }
                     }
                 }
+                .padding(2)
             }
             .refreshable {}
         }
