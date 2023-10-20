@@ -31,33 +31,34 @@ struct ProviderCardView: View {
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     Text(provider.name)
-                        .font(.title)
                         .fontWeight(.bold)
                     Spacer()
                 }
 
                 HStack {
-                    Text(provider.fullAddress)
+                    Text(provider.location.fullAddress)
                     Spacer()
                 }
 
-                HStack(spacing: 12) {
-                    Text(provider.operatingTime)
-                    Divider()
-                        .frame(height: 20)
-                    Text(provider.lastOrderTime)
+                HStack {
+                    Text(provider.time.operatingTimeString)
+                        .fontWeight(.bold)
+                    Spacer()
                 }
-                .fontWeight(.bold)
+                
 
                 HStack {
-                    Text(provider.breakTime)
-                        .fontWeight(.bold)
+                    Text(provider.time.lastOrderTimeString)
+                    Spacer()
+                }
+
+                HStack {
+                    Text(provider.time.breakTimeString)
+                    Spacer()
                 }
             }
             .padding()
         }
-        
-        .frame(maxHeight: 160)
     }
 
     fileprivate func getHeight(_ geometry: GeometryProxy) -> CGFloat {

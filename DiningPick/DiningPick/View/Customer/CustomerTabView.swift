@@ -51,7 +51,7 @@ struct CustomerTabView: View {
         }
         .navigationTitle("다이닝픽")
         .navigationBarBackButtonHidden()
-        .toolbarBackground(.hidden, for: .navigationBar)    // 툴바 불투명하게 만들기
+        .toolbarBackground(.background, for: .navigationBar)    // 툴바 불투명하게 만들기
         // currentIndex가 TabView의 selection에 binding됨으로써, 선택된 화면별로 다른 toolbar 버튼들을 보여줄 수 있다!
         .toolbar {
             if currentIndex == 2 {

@@ -26,6 +26,17 @@ class ProviderStore: ObservableObject {
         return ret
     }
     
+    func getProvidersBySearchOption(_ option: SearchOption) -> [Provider] {
+        providers.filter { provider in
+            // Provider의 location, SearchOption의 location 모두
+            // 동일한 Location 구조체 인스턴스.
+            provider.location == option.location
+        }
+        .sorted(by: {
+            option.sorting == .asc ? ($0 < $1) : ($0 > $1)
+        })
+    }
+    
     func addProvider(_ provider: Provider) {
         guard providers.contains(where: {
             $0.id == provider.id

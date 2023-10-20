@@ -8,15 +8,25 @@
 import SwiftUI
 
 struct CustomerFindStoreView: View {
+    @Environment(\.dismiss) private var dismiss
+    
     @EnvironmentObject var customerStore: CustomerStore
     @EnvironmentObject var providerStore: ProviderStore
     @StateObject var searchOptionStore: SearchOptionStore = .init()
+    
+    @State var searchKeyword: String = ""
     
     // 현재 표시중인 Picker
     @State var isShowingPicker: PickerName = .province
     @State var isShowingPickerSheet: Bool = false
     
-    @State var searchKeyword: String = ""
+    // 사용자가 선택한 매장 페이지를 보여주는 sheet
+    @State var pickedProvider: Provider? = nil
+    @State var isShowingProviderSheet: Bool = false
+    
+    var filteredProviders: [Provider] {
+        providerStore.getProvidersBySearchOption(searchOptionStore.option)
+    }
     
     // 카드뷰를 클릭하면 구독 추가되면서 현재 sheet 닫힘
     var body: some View {
@@ -87,7 +97,28 @@ struct CustomerFindStoreView: View {
                     .optionPickerButton()
                 }
                 
+                HStack(spacing: 2) {
+                    Text("총 ")
+                    Text("\(filteredProviders.count)")
+                        .foregroundStyle(Color.accentColor)
+                        .fontWeight(.bold)
+                    Text("개의 매장이 있습니다.")
+                }
+                
                 // 가게 목록 ScrollView - LazyVStack - ForEach (pagination 할 수 있음 하고)
+                ScrollView {
+                    VStack {
+                        ForEach(filteredProviders) { provider in
+                            Button {
+                                isShowingProviderSheet.toggle()
+                                pickedProvider = provider
+                            } label: {
+                                ProviderCardView(provider: provider)
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
+                }
                 
                 Spacer()
             }
@@ -101,28 +132,30 @@ struct CustomerFindStoreView: View {
                                 ForEach(Province.pickable, id: \.self) { item in
                                     Text("\(item)")
                                 }
-                                
                             })
                             .pickerStyle(WheelPickerStyle())
+                            .onChange(of: searchOptionStore.option.location.province.picked) { _, picked in
+                                searchOptionStore.option.location.city.picked = City.pickable[picked]![0]
+                            }
                             
                         case .city:
                             Picker("시/구 선택", selection: $searchOptionStore.option.location.city.picked, content: { ForEach(City.pickable[searchOptionStore.option.location.province.picked] ?? [], id: \.self) { item in
-                                    Text("\(item)")
-                                }
+                                Text("\(item)")
+                            }
                             })
                             .pickerStyle(WheelPickerStyle())
                             
                         case .category:
                             Picker("맛집 카테고리 선택", selection: $searchOptionStore.option.location.category.picked, content: { ForEach(Category.pickable, id: \.self) { item in
-                                    Text("\(item)")
-                                }
+                                Text("\(item)")
+                            }
                             })
                             .pickerStyle(WheelPickerStyle())
                             
                         case .sorting:
                             Picker("가게 목록 정렬 방식 선택", selection: $searchOptionStore.option.sorting, content: { ForEach(Sorting.pickable, id: \.self) { item in
-                                    Text("\(item.description)")
-                                }
+                                Text("\(item.description)")
+                            }
                             })
                             .pickerStyle(WheelPickerStyle())
                         }
@@ -139,6 +172,18 @@ struct CustomerFindStoreView: View {
                 }
                 .presentationDetents([.height(250.0)])
             })
+            .sheet(isPresented: $isShowingProviderSheet, content: {
+                if let provider = pickedProvider {
+                    ProviderMainPageView(provider: provider)
+                }
+            })
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("완료") {
+                        dismiss()
+                    }
+                }
+            }
             .navigationTitle("매장 찾기")
             .navigationBarTitleDisplayMode(.inline)
         }

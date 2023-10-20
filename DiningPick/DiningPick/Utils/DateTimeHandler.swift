@@ -54,7 +54,7 @@ enum TimestampType {
         case .yMd:
             return "yyyy-MM-dd"
         case .yMdHm:
-            return "yyyy.MM.dd.HH.mm"
+            return "yyyy년 MM월 dd일 HH:mm"
         case .MdHm:
             return "MM/dd HH시 mm분"
         }
