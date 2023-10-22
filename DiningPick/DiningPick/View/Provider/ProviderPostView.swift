@@ -1,13 +1,13 @@
 //
-//  CustomerFeedBackView.swift
+//  ProviderPostView.swift
 //  DiningPick
 //
-//  Created by 박재형 on 10/12/23.
+//  Created by 박재형 on 10/19/23.
 //
 
 import SwiftUI
 
-struct CustomerFeedBackView: View {
+struct ProviderPostView: View {
     @State private var enabledProviderButton: Bool = false
     @State private var enabledAdminButton: Bool = false
 
@@ -18,7 +18,7 @@ struct CustomerFeedBackView: View {
         NavigationStack {
             HStack {
                 VStack(alignment: .leading, spacing: 20) {
-                    Text("건의할 대상")
+                    Text("작성할 게시글 종류")
                         .bold()
 
                     HStack(spacing: 30) {
@@ -32,7 +32,7 @@ struct CustomerFeedBackView: View {
                                     Image(systemName: "checkmark.square.fill")
                                 }
                             }
-                            Text("사장님")
+                            Text("공지사항")
                         }
 
                         HStack {
@@ -45,7 +45,7 @@ struct CustomerFeedBackView: View {
                                     Image(systemName: "checkmark.square.fill")
                                 }
                             }
-                            Text("관리자")
+                            Text("메뉴")
                         }
                     }
                 }
@@ -61,7 +61,23 @@ struct CustomerFeedBackView: View {
                         Image(systemName: "photo")
                             .font(.title)
                             .padding(.vertical, 10)
-                        Text("탭하여 이미지를 추가해보세요")
+                        Text("탭하여 이미지를 추가해보세요.")
+                        Image(uiImage: self.image)
+                            .resizable()
+                            .scaledToFit()
+                    }
+                    .foregroundColor(.black)
+                    .opacity(0.3)
+                    .feedBackCard(maxHeight: 100)
+                }
+                Button {
+                    
+                } label: {
+                    VStack {
+                        Image(systemName: "tablecells")
+                            .font(.title)
+                            .padding(.vertical, 10)
+                        Text("탭하여 메뉴를 테이블로 작성해보세요.")
                         Image(uiImage: self.image)
                             .resizable()
                             .scaledToFit()
@@ -72,14 +88,13 @@ struct CustomerFeedBackView: View {
                 }
             }
             Text("ss")
-                .feedBackCard(maxHeight: 350)
-            // 특정가게 탭하면 특정가게이름 나오도록 수정 예정
-                .navigationTitle("가게이름")
+                .feedBackCard(maxHeight: 300)
+                .navigationTitle("게시글 작성")
                 .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
 
 #Preview {
-    CustomerFeedBackView()
+    ProviderPostView()
 }

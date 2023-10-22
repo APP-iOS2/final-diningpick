@@ -19,7 +19,6 @@
 		6108CB2F2ACFACC5008E1C7C /* FullSizeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6108CB2D2ACFACC5008E1C7C /* FullSizeTextField.swift */; };
 		6108CB302ACFACC5008E1C7C /* FullSizeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6108CB2E2ACFACC5008E1C7C /* FullSizeButton.swift */; };
 		611765132ADE194B00FE0ED1 /* ConfigButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611765122ADE194B00FE0ED1 /* ConfigButton.swift */; };
-		6117651E2ADE7BC500FE0ED1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6117651D2ADE7BC500FE0ED1 /* GoogleService-Info.plist */; };
 		61663E902ADEA93700FCAB8E /* Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61663E8F2ADEA93700FCAB8E /* Dimensions.swift */; };
 		616980492AD645CA0060838B /* ProviderCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616980482AD645CA0060838B /* ProviderCardView.swift */; };
 		6169804B2AD64A800060838B /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6169804A2AD64A800060838B /* Provider.swift */; };
@@ -45,6 +44,9 @@
 		61FEB8A82AD7C6D800170B0D /* OptionPickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FEB8A72AD7C6D800170B0D /* OptionPickerButton.swift */; };
 		61FEB8AC2AD7DB1B00170B0D /* SearchOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FEB8AB2AD7DB1B00170B0D /* SearchOption.swift */; };
 		61FEB8AE2AD7E33200170B0D /* SearchOptionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FEB8AD2AD7E33200170B0D /* SearchOptionStore.swift */; };
+		FE0255102AE0BCA800C7A041 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE02550F2AE0BCA800C7A041 /* GoogleService-Info.plist */; };
+		FE0255122AE0BD8700C7A041 /* ProviderPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0255112AE0BD8700C7A041 /* ProviderPostView.swift */; };
+		FE0255142AE39B1C00C7A041 /* ProviderInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0255132AE39B1C00C7A041 /* ProviderInformation.swift */; };
 		FE2EC6D22ACFC32600D871E6 /* SignupAccountTypeSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2EC6D12ACFC32600D871E6 /* SignupAccountTypeSelectionView.swift */; };
 		FE2EC6D42ACFCD2300D871E6 /* SignupCustomerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2EC6D32ACFCD2300D871E6 /* SignupCustomerView.swift */; };
 		FE2EC6D82ACFE51E00D871E6 /* FirstSignupProviderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2EC6D72ACFE51E00D871E6 /* FirstSignupProviderView.swift */; };
@@ -88,7 +90,6 @@
 		6108CB2D2ACFACC5008E1C7C /* FullSizeTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullSizeTextField.swift; sourceTree = "<group>"; };
 		6108CB2E2ACFACC5008E1C7C /* FullSizeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullSizeButton.swift; sourceTree = "<group>"; };
 		611765122ADE194B00FE0ED1 /* ConfigButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigButton.swift; sourceTree = "<group>"; };
-		6117651D2ADE7BC500FE0ED1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		61663E8F2ADEA93700FCAB8E /* Dimensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dimensions.swift; sourceTree = "<group>"; };
 		616980482AD645CA0060838B /* ProviderCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderCardView.swift; sourceTree = "<group>"; };
 		6169804A2AD64A800060838B /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
@@ -117,6 +118,9 @@
 		61FEB8A72AD7C6D800170B0D /* OptionPickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionPickerButton.swift; sourceTree = "<group>"; };
 		61FEB8AB2AD7DB1B00170B0D /* SearchOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOption.swift; sourceTree = "<group>"; };
 		61FEB8AD2AD7E33200170B0D /* SearchOptionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOptionStore.swift; sourceTree = "<group>"; };
+		FE02550F2AE0BCA800C7A041 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FE0255112AE0BD8700C7A041 /* ProviderPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderPostView.swift; sourceTree = "<group>"; };
+		FE0255132AE39B1C00C7A041 /* ProviderInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderInformation.swift; sourceTree = "<group>"; };
 		FE2EC6D12ACFC32600D871E6 /* SignupAccountTypeSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupAccountTypeSelectionView.swift; sourceTree = "<group>"; };
 		FE2EC6D32ACFCD2300D871E6 /* SignupCustomerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCustomerView.swift; sourceTree = "<group>"; };
 		FE2EC6D72ACFE51E00D871E6 /* FirstSignupProviderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstSignupProviderView.swift; sourceTree = "<group>"; };
@@ -210,6 +214,8 @@
 			children = (
 				6108CB172ACEADA6008E1C7C /* ProviderTabView.swift */,
 				61726B292AE117CF007CF23D /* ProviderMainPageView.swift */,
+				FE0255112AE0BD8700C7A041 /* ProviderPostView.swift */,
+				FE0255132AE39B1C00C7A041 /* ProviderInformation.swift */,
 			);
 			path = Provider;
 			sourceTree = "<group>";
@@ -337,7 +343,7 @@
 		61FE8ABA2AC26C0600A74D65 = {
 			isa = PBXGroup;
 			children = (
-				6117651D2ADE7BC500FE0ED1 /* GoogleService-Info.plist */,
+				FE02550F2AE0BCA800C7A041 /* GoogleService-Info.plist */,
 				6108CB062ACEA35D008E1C7C /* Localization */,
 				61FE8AC52AC26C0700A74D65 /* DiningPick */,
 				61FE8AD82AC26C0900A74D65 /* DiningPickTests */,
@@ -501,9 +507,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				61FE8AD02AC26C0900A74D65 /* Preview Assets.xcassets in Resources */,
-				6117651E2ADE7BC500FE0ED1 /* GoogleService-Info.plist in Resources */,
 				6108CB072ACEA374008E1C7C /* InfoPlist.strings in Resources */,
 				61FE8ACD2AC26C0900A74D65 /* Assets.xcassets in Resources */,
+				FE0255102AE0BCA800C7A041 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -546,9 +552,11 @@
 				FE2EC6DC2AD01B8600D871E6 /* CompleteSignupView.swift in Sources */,
 				6108CB1A2ACEADB1008E1C7C /* AdminRootView.swift in Sources */,
 				61E0B8EC2AD69B5D003375EC /* CustomerMyPageView.swift in Sources */,
+				FE0255142AE39B1C00C7A041 /* ProviderInformation.swift in Sources */,
 				61E0B8E42AD691E8003375EC /* Customer.swift in Sources */,
 				611765132ADE194B00FE0ED1 /* ConfigButton.swift in Sources */,
 				61FEB8AC2AD7DB1B00170B0D /* SearchOption.swift in Sources */,
+				FE0255122AE0BD8700C7A041 /* ProviderPostView.swift in Sources */,
 				6108CB302ACFACC5008E1C7C /* FullSizeButton.swift in Sources */,
 				6169804B2AD64A800060838B /* Provider.swift in Sources */,
 				FE2EC6D82ACFE51E00D871E6 /* FirstSignupProviderView.swift in Sources */,
