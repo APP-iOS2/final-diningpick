@@ -42,6 +42,8 @@ struct FullSizeTextField: ViewModifier {
                 .padding(.top, 40)
                 .padding(.horizontal, 20)
                 .foregroundStyle(Color.black)
+                .background(Color.lightGray)
+                
         }
         .frame(height: size.numeric)
     }

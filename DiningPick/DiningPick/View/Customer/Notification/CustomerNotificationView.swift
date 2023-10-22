@@ -49,7 +49,8 @@ struct CustomerNotificationView: View {
                     }
                 }
             }
-            .padding()
+            .padding(.vertical)
+            .padding(.horizontal, 4)
             .navigationTitle("알림")
             .navigationBarTitleDisplayMode(.inline)
         }

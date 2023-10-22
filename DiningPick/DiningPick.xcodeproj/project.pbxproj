@@ -24,6 +24,8 @@
 		6169804B2AD64A800060838B /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6169804A2AD64A800060838B /* Provider.swift */; };
 		6169804D2AD64C730060838B /* DateTimeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6169804C2AD64C730060838B /* DateTimeHandler.swift */; };
 		61726B2A2AE117CF007CF23D /* ProviderMainPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61726B292AE117CF007CF23D /* ProviderMainPageView.swift */; };
+		61AF77322AE50EB10099FE90 /* PhoneNumberTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61AF77312AE50EB10099FE90 /* PhoneNumberTextField.swift */; };
+		61AF77342AE511990099FE90 /* PhoneNumberStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61AF77332AE511990099FE90 /* PhoneNumberStore.swift */; };
 		61E0B8E42AD691E8003375EC /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E0B8E32AD691E8003375EC /* Customer.swift */; };
 		61E0B8E62AD69866003375EC /* CustomerSubscribeProviderListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E0B8E52AD69866003375EC /* CustomerSubscribeProviderListView.swift */; };
 		61E0B8E82AD6994A003375EC /* CustomerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E0B8E72AD6994A003375EC /* CustomerStore.swift */; };
@@ -95,6 +97,8 @@
 		6169804A2AD64A800060838B /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		6169804C2AD64C730060838B /* DateTimeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeHandler.swift; sourceTree = "<group>"; };
 		61726B292AE117CF007CF23D /* ProviderMainPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderMainPageView.swift; sourceTree = "<group>"; };
+		61AF77312AE50EB10099FE90 /* PhoneNumberTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberTextField.swift; sourceTree = "<group>"; };
+		61AF77332AE511990099FE90 /* PhoneNumberStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberStore.swift; sourceTree = "<group>"; };
 		61E0B8E32AD691E8003375EC /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 		61E0B8E52AD69866003375EC /* CustomerSubscribeProviderListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSubscribeProviderListView.swift; sourceTree = "<group>"; };
 		61E0B8E72AD6994A003375EC /* CustomerStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerStore.swift; sourceTree = "<group>"; };
@@ -260,6 +264,7 @@
 				61FEB8A72AD7C6D800170B0D /* OptionPickerButton.swift */,
 				FEF4C7A72AD7CD6100DC6A8D /* FeedBackCard.swift */,
 				611765122ADE194B00FE0ED1 /* ConfigButton.swift */,
+				61AF77312AE50EB10099FE90 /* PhoneNumberTextField.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -270,6 +275,7 @@
 				6108CB292ACF9B88008E1C7C /* Colors.swift */,
 				6169804C2AD64C730060838B /* DateTimeHandler.swift */,
 				61663E8F2ADEA93700FCAB8E /* Dimensions.swift */,
+				61AF77332AE511990099FE90 /* PhoneNumberStore.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -543,6 +549,7 @@
 				61FEB8AE2AD7E33200170B0D /* SearchOptionStore.swift in Sources */,
 				61726B2A2AE117CF007CF23D /* ProviderMainPageView.swift in Sources */,
 				61E3E6802AD7BD44006FDE26 /* SearchBar.swift in Sources */,
+				61AF77322AE50EB10099FE90 /* PhoneNumberTextField.swift in Sources */,
 				FEF4C7A82AD7CD6100DC6A8D /* FeedBackCard.swift in Sources */,
 				FE2EC6DA2ACFE63600D871E6 /* SecondSignupProviderView.swift in Sources */,
 				61E0B8E82AD6994A003375EC /* CustomerStore.swift in Sources */,
@@ -577,6 +584,7 @@
 				61E0B8F12AD6DB59003375EC /* CustomerFindStoreView.swift in Sources */,
 				6108CB1C2ACEADD6008E1C7C /* Account.swift in Sources */,
 				6108CB1E2ACEADE2008E1C7C /* AccountStore.swift in Sources */,
+				61AF77342AE511990099FE90 /* PhoneNumberStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
