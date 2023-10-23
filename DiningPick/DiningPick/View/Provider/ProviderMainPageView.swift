@@ -25,7 +25,7 @@ struct ProviderMainPageView: View {
         }
     }
     
-    var provider: Provider
+    @Binding var provider: Provider
     
     @EnvironmentObject private var customerStore: CustomerStore
     @EnvironmentObject private var providerStore: ProviderStore
@@ -290,7 +290,7 @@ struct ProviderMainPageView: View {
 }
 
 #Preview {
-    ProviderMainPageView(provider: .sampleSimpleData)
+    ProviderMainPageView(provider: .constant(.emptyData))
         .environmentObject(CustomerStore())
         .environmentObject(ProviderStore())
 }

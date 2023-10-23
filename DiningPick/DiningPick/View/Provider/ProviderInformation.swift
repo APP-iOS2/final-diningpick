@@ -172,13 +172,18 @@ struct ProviderInformation: View {
                     debugPrint(self.provider)
                     
                     // alert 닫고 현재 화면을 수정 화면에서 전환
-                    isShowingConfirmAlert.toggle()
                     currentScreen.toggle()
+                    isShowingConfirmAlert.toggle()
+//                    currentScreen.toggle()
                 }
+                .foregroundStyle(Color.themeAccentColor)
+                .bold()
                 
                 Button("취소", role: .cancel) {
                     isShowingConfirmAlert.toggle()
                 }
+                .foregroundStyle(Color.themeAccentColor)
+                .bold()
             }
         }
     }
@@ -307,7 +312,7 @@ struct ProviderInformation: View {
                         
                     DatePicker("브레이크타임 시작", selection: $breakStartTime, in: openingTime..., displayedComponents: .hourAndMinute)
                         
-                    DatePicker("브레이크타임 끝", selection: $breakEndTime, in: openingTime..., displayedComponents: .hourAndMinute)
+                    DatePicker("브레이크타임 끝", selection: $breakEndTime, in: breakStartTime..., displayedComponents: .hourAndMinute)
                 }
                 .bold()
                 .padding(.horizontal)
@@ -361,7 +366,10 @@ struct ProviderInformation: View {
                 HStack {
                     Text("상세 주소")
                         .padding(.trailing)
+                    Spacer()
                     TextField(provider.location.detail ?? "", text: $searchOptionStore.option.location.detail.toUnwrapped(defaultValue: ""))
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .frame(minWidth: 0, maxWidth: .infinity)
                 }
             }
             .padding(.horizontal)

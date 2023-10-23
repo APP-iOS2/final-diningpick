@@ -7,6 +7,23 @@
 
 import SwiftUI
 
+enum PickerName {
+    case province, city, category, sorting
+    
+    var description: String {
+        switch self {
+        case .province:
+            return "지역 선택"
+        case .city:
+            return "시/군/구 선택"
+        case .category:
+            return "종류 선택"
+        case .sorting:
+            return "정렬 방법 선택"
+        }
+    }
+}
+
 struct CustomerFindStoreView: View {
     @Environment(\.dismiss) private var dismiss
     
@@ -21,7 +38,7 @@ struct CustomerFindStoreView: View {
     @State var isShowingPickerSheet: Bool = false
     
     // 사용자가 선택한 매장 페이지를 보여주는 sheet
-    @State var pickedProvider: Provider? = nil
+    @State var pickedProvider: Provider = .emptyData
     @State var isShowingProviderSheet: Bool = false
     
     var filteredProviders: [Provider] {
@@ -124,58 +141,14 @@ struct CustomerFindStoreView: View {
             }
             .padding()
             .sheet(isPresented: $isShowingPickerSheet, content: {
-                NavigationStack {
-                    VStack {
-                        switch isShowingPicker {
-                        case .province:
-                            Picker("지역 선택", selection: $searchOptionStore.option.location.province.picked, content: {
-                                ForEach(Province.pickable, id: \.self) { item in
-                                    Text("\(item)")
-                                }
-                            })
-                            .pickerStyle(WheelPickerStyle())
-                            .onChange(of: searchOptionStore.option.location.province.picked) { _, picked in
-                                searchOptionStore.option.location.city.picked = City.pickable[picked]![0]
-                            }
-                            
-                        case .city:
-                            Picker("시/구 선택", selection: $searchOptionStore.option.location.city.picked, content: { ForEach(City.pickable[searchOptionStore.option.location.province.picked] ?? [], id: \.self) { item in
-                                Text("\(item)")
-                            }
-                            })
-                            .pickerStyle(WheelPickerStyle())
-                            
-                        case .category:
-                            Picker("맛집 카테고리 선택", selection: $searchOptionStore.option.location.category.picked, content: { ForEach(Category.pickable, id: \.self) { item in
-                                Text("\(item)")
-                            }
-                            })
-                            .pickerStyle(WheelPickerStyle())
-                            
-                        case .sorting:
-                            Picker("가게 목록 정렬 방식 선택", selection: $searchOptionStore.option.sorting, content: { ForEach(Sorting.pickable, id: \.self) { item in
-                                Text("\(item.description)")
-                            }
-                            })
-                            .pickerStyle(WheelPickerStyle())
-                        }
-                    }
-                    .toolbar {
-                        ToolbarItem(placement: .topBarTrailing) {
-                            Button("완료") {
-                                isShowingPickerSheet.toggle()
-                            }
-                        }
-                    }
-                    .navigationTitle("\(isShowingPicker.description)")
-                    .navigationBarTitleDisplayMode(.inline)
-                }
-                .presentationDetents([.height(250.0)])
+                CustomerSelectSearchOptionView(isShowingPickerSheet: $isShowingPickerSheet, isShowingPicker: $isShowingPicker, searchOptionStore: searchOptionStore)
+                    .presentationDetents([.height(250.0)])
             })
+            // NOTE: 값이 늦게 sheet에 전달되는 현상
+            // -> if let ~~ 구문으로 nil 검사하지 말고, 그냥 뷰를 @Binding 래퍼 씌워서 넘기자
+            // 그러면 늦게 전달되더라도 그 뒤에 바로 값이 전달된다.
             .sheet(isPresented: $isShowingProviderSheet, content: {
-                if let provider = pickedProvider {
-                    ProviderMainPageView(provider: provider)
-                }
+                ProviderMainPageView(provider: $pickedProvider)
             })
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -186,23 +159,6 @@ struct CustomerFindStoreView: View {
             }
             .navigationTitle("매장 찾기")
             .navigationBarTitleDisplayMode(.inline)
-        }
-    }
-    
-    enum PickerName {
-        case province, city, category, sorting
-        
-        var description: String {
-            switch self {
-            case .province:
-                return "지역 선택"
-            case .city:
-                return "시/군/구 선택"
-            case .category:
-                return "종류 선택"
-            case .sorting:
-                return "정렬 방법 선택"
-            }
         }
     }
 }
