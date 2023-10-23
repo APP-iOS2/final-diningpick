@@ -15,6 +15,7 @@ struct CustomerFeedCardView: View {
     var article: Article
     
     @State private var isLiked: Bool = false
+    @State private var likes: Int = 0
     
     var body: some View {
         VStack {
@@ -32,7 +33,7 @@ struct CustomerFeedCardView: View {
                         Spacer()
                         
                         Button {
-                            isLiked = providerStore.setLikedArticle(article: article)
+                            (isLiked, likes) = providerStore.setLikedArticle(article: article)
                         } label: {
                             HStack(spacing: 4) {
                                 if !isLiked {
@@ -42,13 +43,13 @@ struct CustomerFeedCardView: View {
                                     Image(systemName: "heart.fill")
                                         .foregroundColor(.red)
                                 }
-                                Text("24")
+                                Text("\(likes)")
                                     .foregroundStyle(colorScheme == .light ? Color.black : Color.white)
                             }
                         }
                     }
                     
-                    Text("2023년 10월 5일 오후 3:17")
+                    Text("\(DatetimeHandler.getInstance(locale: .ko_KR, timezone: .Asia_Seoul).getFormattedTimestamp(createdAt: article.date.timeIntervalSince1970, type: .yMdHm))")
                         .padding(.vertical, 2)
                     Spacer()
                 }
@@ -86,6 +87,10 @@ struct CustomerFeedCardView: View {
             
             Divider()
         }
+        .onAppear(perform: {
+            isLiked = article.isLiked
+            likes = article.likes
+        })
     }
 }
 

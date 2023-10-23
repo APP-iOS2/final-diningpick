@@ -66,21 +66,29 @@ class ProviderStore: ObservableObject {
     // NOTE: 좋아요 누르기 기능
     // 1. article의 providerId로 실제 provider 찾기
     // 2. 실제 provider 찾으면 여기서 실제 article 찾기
-    func setLikedArticle(article: Article) -> Bool {
+    // + 추가로, 좋아요 개수도 1 올린다. (해제할때는 1 감소)
+    func setLikedArticle(article: Article) -> (Bool, Int) {
         guard let providerIndex = providers.firstIndex(where: { provider in
             provider.id == article.providerId
         }) else {
             print("failed to find \(article.providerId) provider in providers")
-            return false
+            return (false, -1)
         }
         
         guard let articleIndex = providers[providerIndex].articles.firstIndex(of: article) else {
             print("failed to find \(article.id) article in articles")
-            return false
+            return (false, -1)
         }
         
         providers[providerIndex].articles[articleIndex].isLiked.toggle()
-        return providers[providerIndex].articles[articleIndex].isLiked
+        
+        if providers[providerIndex].articles[articleIndex].isLiked {
+            providers[providerIndex].articles[articleIndex].likes += 1
+        } else {
+            providers[providerIndex].articles[articleIndex].likes -= 1
+        }
+        
+        return (providers[providerIndex].articles[articleIndex].isLiked, providers[providerIndex].articles[articleIndex].likes)
     }
     
     func addProvider(_ provider: Provider) {
