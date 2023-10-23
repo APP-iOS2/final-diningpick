@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+enum NavigatedFrom {
+    case navigationLink
+    case sheet
+}
+
 struct ProviderMainPageView: View {
     enum TabInfo: CaseIterable {
         case left
@@ -25,12 +30,51 @@ struct ProviderMainPageView: View {
         }
     }
     
+    enum SubscribeStatus {
+        case subscribed
+        case unsubscribed
+        
+        var message: String {
+            switch self {
+            case .subscribed:
+                return "구독을 취소하시겠습니까?"
+            case .unsubscribed:
+                return "구독하시겠습니까?"
+            }
+        }
+        
+        var action: String {
+            switch self {
+            case .subscribed:
+                return "구독 취소"
+            case .unsubscribed:
+                return "구독"
+            }
+        }
+        
+        mutating func toggle() {
+            switch self {
+            case .subscribed:
+                self = .unsubscribed
+            case .unsubscribed:
+                self = .subscribed
+            }
+        }
+    }
+    
     @Binding var provider: Provider
+    var navigatedFrom: NavigatedFrom
+    
+    @State var subscribeStatus: SubscribeStatus = .unsubscribed
     
     @EnvironmentObject private var customerStore: CustomerStore
     @EnvironmentObject private var providerStore: ProviderStore
     
     @State private var selectedTab: TabInfo = .left
+    @State private var isShowingSubscribeConfirmAlert: Bool = false
+    @State private var isShowingErrorAlert: Bool = false
+    @State private var errorMessage: String = ""
+    
     @Namespace private var animation
     @Environment(\.dismiss) private var dismiss
     
@@ -53,20 +97,66 @@ struct ProviderMainPageView: View {
                 .refreshable {}
             }
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {} label: {
-                        Text("구독")
+                if subscribeStatus == .unsubscribed {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            isShowingSubscribeConfirmAlert.toggle()
+                        } label: {
+                            Text("구독")
+                        }
+                    }
+                } else {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            isShowingSubscribeConfirmAlert.toggle()
+                        } label: {
+                            Text("구독 취소")
+                        }
                     }
                 }
                 
                 ToolbarItem(placement: .topBarLeading) {
-                    Button {
+                    if navigatedFrom == .sheet { Button {
                         dismiss()
                     } label: {
                         Text("닫기")
                     }
+                    }
                 }
             }
+            .alert(subscribeStatus.message, isPresented: $isShowingSubscribeConfirmAlert, actions: {
+                Button(subscribeStatus.action) {
+                    switch subscribeStatus {
+                    case .unsubscribed:
+                        if let error = customerStore.subscribeProvider(providerId: provider.id) {
+                            errorMessage = error.description
+                            isShowingErrorAlert.toggle()
+                        }
+                    case .subscribed:
+                        if let error = customerStore.unsubscribeProvider(providerId: provider.id) {
+                            errorMessage = error.description
+                            isShowingErrorAlert.toggle()
+                        }
+                    }
+                    subscribeStatus.toggle()
+                    isShowingSubscribeConfirmAlert.toggle()
+                }
+                
+                Button("돌아가기", role: .cancel) {
+                    isShowingSubscribeConfirmAlert.toggle()
+                }
+            })
+            .alert("오류", isPresented: $isShowingErrorAlert, actions: {
+                Button("확인") {
+                    errorMessage = ""
+                    isShowingErrorAlert.toggle()
+                }
+            }, message: {
+                Text(errorMessage)
+            })
+            .onAppear(perform: {
+                subscribeStatus = customerStore.didSubscriptionProvider(provider) ? SubscribeStatus.subscribed : SubscribeStatus.unsubscribed
+            })
             .padding()
             .navigationTitle(provider.name)
             .navigationBarTitleDisplayMode(.inline)
@@ -285,12 +375,12 @@ struct ProviderMainPageView: View {
     // 10:09 ~ 18:29 을 아웃풋으로 반환한다.
     private func slicingBehindOfLabel(from string: String) -> String {
         let tokens = string.split(separator: " ")
-        return tokens[1..<tokens.count].joined(separator: " ")
+        return tokens[1 ..< tokens.count].joined(separator: " ")
     }
 }
 
 #Preview {
-    ProviderMainPageView(provider: .constant(.emptyData))
+    ProviderMainPageView(provider: .constant(.emptyData), navigatedFrom: .sheet)
         .environmentObject(CustomerStore())
         .environmentObject(ProviderStore())
 }

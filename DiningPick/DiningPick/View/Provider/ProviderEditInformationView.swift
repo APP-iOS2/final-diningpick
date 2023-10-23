@@ -1,5 +1,5 @@
 //
-//  ProviderInformation.swift
+//  ProviderEditInformationView.swift
 //  DiningPick
 //
 //  Created by 박재형 on 10/21/23.
@@ -13,7 +13,7 @@ extension Binding {
     }
 }
 
-struct ProviderInformation: View {
+struct ProviderEditInformationView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var providerStore: ProviderStore
     
@@ -441,6 +441,6 @@ struct ProviderInformation: View {
 }
 
 #Preview {
-    ProviderInformation(provider: .sampleSimpleData)
+    ProviderEditInformationView(provider: .sampleSimpleData)
         .environmentObject(ProviderStore())
 }

@@ -33,10 +33,13 @@ struct CustomerSubscribeProviderListView: View {
                 // List나 Form으로 ForEach를 감쌀 때에만 작동한다.
                 List {
                     ForEach(providerStore.getProvidersByIDs(customerStore.customer.preferences.favoriteProviders)) { provider in
-                        ProviderCardView(provider: provider)
-                            .listRowSeparator(.hidden)
+                        NavigationLink {
+                            ProviderMainPageView(provider: .constant(provider), navigatedFrom: .navigationLink)
+                        } label: {
+                            ProviderCardView(provider: provider)
+                        }
+                        .listRowSeparator(.hidden)
                     }
-                    .onDelete(perform: customerStore.removeSubscribe)
                     .onMove(perform: customerStore.onMove)
                 }
                 .listStyle(.plain)

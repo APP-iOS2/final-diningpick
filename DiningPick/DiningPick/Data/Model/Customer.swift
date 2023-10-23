@@ -20,5 +20,5 @@ struct CustomerPreference: Codable {
 
 extension Customer {
     // Provider의 id를 가지고 참조
-    static let sampleData: Customer = .init(preferences: .init(favoriteProviders: ["1A23D4F", "3BA3D4F"], subscribeNoticeOfProviders: ["1A23D4F"], subscribeMenuOfProviders: ["1A23D4F"]))
+    static let sampleData: Customer = .init(preferences: .init(favoriteProviders: ["1A23D4F"], subscribeNoticeOfProviders: ["1A23D4F"], subscribeMenuOfProviders: ["1A23D4F"]))
 }

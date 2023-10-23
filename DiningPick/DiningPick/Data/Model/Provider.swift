@@ -82,10 +82,13 @@ struct Article: Identifiable, Equatable, Codable {
     }
     
     var id = UUID().uuidString
+    var providerId: String      // 작성자 id값
+    var providerName: String
     var type: ArticleType
     var title: String
     var date: Date
     var likes: Int
+    var isLiked: Bool
     var image: ImageData
     var content: String?
     var menus: [String]?
@@ -144,13 +147,13 @@ extension Provider {
 
 extension Article {
     static let sampleData: [Article] = [
-        .init(type: .notice, title: "휴점 안내", date: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 30000), likes: 202, image: .init(image: nil), content: "오늘 내부 공사로 인해 휴무합니다!"),
-        .init(type: .notice, title: "휴점 안내", date: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 30000), likes: 202, image: .init(image: nil), content: "오늘 내부 공사로 인해 휴무합니다!"),
-        .init(type: .notice, title: "휴점 안내", date: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 30000), likes: 202, image: .init(image: nil), content: "오늘 내부 공사로 인해 휴무합니다!"),
-        .init(type: .notice, title: "휴점 안내", date: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 30000), likes: 202, image: .init(image: nil), content: "오늘 내부 공사로 인해 휴무합니다!"),
-        .init(type: .menu, title: "오늘의 메뉴!", date: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 10000), likes: 46, image: .init(image: nil), menus: ["뚝배기불고기", "배추김치", "미니돈까스", "매실에이드", "미소장국"]),
-        .init(type: .menu, title: "오늘의 메뉴!", date: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 10000), likes: 46, image: .init(image: nil), menus: ["뚝배기불고기", "배추김치", "미니돈까스", "매실에이드", "미소장국"]),
-        .init(type: .menu, title: "오늘의 메뉴!", date: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 10000), likes: 46, image: .init(image: nil), menus: ["뚝배기불고기", "배추김치", "미니돈까스", "매실에이드", "미소장국"]),
-        .init(type: .menu, title: "오늘의 메뉴!", date: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 10000), likes: 46, image: .init(image: nil), menus: ["뚝배기불고기", "배추김치", "미니돈까스", "매실에이드", "미소장국"]),
+        .init(providerId: "1A23D4F", providerName: "구들장흑도야지", type: .notice, title: "휴점 안내", date: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 30000), likes: 202, isLiked: false, image: .init(image: nil), content: "오늘 내부 공사로 인해 휴무합니다!"),
+        .init(providerId: "1A23D4F", providerName: "구들장흑도야지", type: .notice, title: "휴점 안내", date: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 30000), likes: 202, isLiked: false, image: .init(image: nil), content: "오늘 내부 공사로 인해 휴무합니다!"),
+        .init(providerId: "1A23D4F", providerName: "구들장흑도야지", type: .notice, title: "휴점 안내", date: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 30000), likes: 202, isLiked: false, image: .init(image: nil), content: "오늘 내부 공사로 인해 휴무합니다!"),
+        .init(providerId: "1A23D4F", providerName: "구들장흑도야지", type: .notice, title: "휴점 안내", date: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 30000), likes: 202, isLiked: false, image: .init(image: nil), content: "오늘 내부 공사로 인해 휴무합니다!"),
+        .init(providerId: "1A23D4F", providerName: "구들장흑도야지", type: .menu, title: "오늘의 메뉴!", date: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 10000), likes: 46, isLiked: false, image: .init(image: nil), menus: ["뚝배기불고기", "배추김치", "미니돈까스", "매실에이드", "미소장국"]),
+        .init(providerId: "1A23D4F", providerName: "구들장흑도야지", type: .menu, title: "오늘의 메뉴!", date: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 10000), likes: 46, isLiked: false, image: .init(image: nil), menus: ["뚝배기불고기", "배추김치", "미니돈까스", "매실에이드", "미소장국"]),
+        .init(providerId: "1A23D4F", providerName: "구들장흑도야지", type: .menu, title: "오늘의 메뉴!", date: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 10000), likes: 46, isLiked: false, image: .init(image: nil), menus: ["뚝배기불고기", "배추김치", "미니돈까스", "매실에이드", "미소장국"]),
+        .init(providerId: "1A23D4F", providerName: "구들장흑도야지", type: .menu, title: "오늘의 메뉴!", date: Date(timeIntervalSince1970: Date.now.timeIntervalSince1970 - 10000), likes: 46, isLiked: false, image: .init(image: nil), menus: ["뚝배기불고기", "배추김치", "미니돈까스", "매실에이드", "미소장국"]),
     ]
 }

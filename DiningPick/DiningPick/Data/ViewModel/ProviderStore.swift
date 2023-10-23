@@ -37,6 +37,52 @@ class ProviderStore: ObservableObject {
         })
     }
     
+    // Customer가 구독한 id들의 배열을 받아, 구독한 매장의 게시글들을 찾아 반환한다.
+    // 예시:
+    // providerStore.getArticlesWrittenBySubscribedProviders(ids: customerStore.customer.preferences.favoriteProviders)
+    func getArticlesWrittenBySubscribedProviders(ids: [String]) -> [Article] {
+        var ret: [Article] = []
+        
+        // 구독한 id들을 가지고 구독한 provider 인스턴스들을 가져온다.
+        var providers: [Provider] = getProvidersByIDs(ids)
+        
+        // 각 provider마다 article을 가져온다.
+        for provider in providers {
+            ret.append(contentsOf: provider.articles)
+        }
+        return ret
+    }
+    
+    // Article의 providerId 값으로 provider를 가져온다.
+    func getProviderByArticleProviderId(providerId: String) -> Provider {
+        if let index = providers.firstIndex(where: { provider in
+            provider.id == providerId
+        }) {
+            return providers[index]
+        }
+        return .emptyData
+    }
+    
+    // NOTE: 좋아요 누르기 기능
+    // 1. article의 providerId로 실제 provider 찾기
+    // 2. 실제 provider 찾으면 여기서 실제 article 찾기
+    func setLikedArticle(article: Article) -> Bool {
+        guard let providerIndex = providers.firstIndex(where: { provider in
+            provider.id == article.providerId
+        }) else {
+            print("failed to find \(article.providerId) provider in providers")
+            return false
+        }
+        
+        guard let articleIndex = providers[providerIndex].articles.firstIndex(of: article) else {
+            print("failed to find \(article.id) article in articles")
+            return false
+        }
+        
+        providers[providerIndex].articles[articleIndex].isLiked.toggle()
+        return providers[providerIndex].articles[articleIndex].isLiked
+    }
+    
     func addProvider(_ provider: Provider) {
         guard providers.contains(where: {
             $0.id == provider.id

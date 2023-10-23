@@ -42,12 +42,6 @@ struct CustomerTabView: View {
                     Image(systemName: "bell.fill")
                     Text("알림")
                 }.tag(3)
-            
-            CustomerMyPageView()
-                .tabItem {
-                    Image(systemName: "person.fill")
-                    Text("내 정보")
-                }.tag(4)
         }
         .navigationTitle("다이닝픽")
         .navigationBarBackButtonHidden()
