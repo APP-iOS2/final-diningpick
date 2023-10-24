@@ -25,40 +25,6 @@ struct ProviderMainPageView: View {
         }
     }
     
-    enum SubscribeStatus {
-        case subscribed
-        case unsubscribed
-        
-        var message: String {
-            switch self {
-            case .subscribed:
-                return "구독을 취소하시겠습니까?"
-            case .unsubscribed:
-                return "구독하시겠습니까?"
-            }
-        }
-        
-        var action: String {
-            switch self {
-            case .subscribed:
-                return "구독 취소"
-            case .unsubscribed:
-                return "구독"
-            }
-        }
-        
-        mutating func toggle() {
-            switch self {
-            case .subscribed:
-                self = .unsubscribed
-            case .unsubscribed:
-                self = .subscribed
-            }
-        }
-    }
-    
-    @State var subscribeStatus: SubscribeStatus = .unsubscribed
-    
     @EnvironmentObject private var customerStore: CustomerStore
     @EnvironmentObject private var providerStore: ProviderStore
     
@@ -88,39 +54,6 @@ struct ProviderMainPageView: View {
                 .padding(.top)
                 .refreshable {}
             }
-            .alert(subscribeStatus.message, isPresented: $isShowingSubscribeConfirmAlert, actions: {
-                Button(subscribeStatus.action) {
-                    switch subscribeStatus {
-                    case .unsubscribed:
-                        if let error = customerStore.subscribeProvider(providerId: providerStore.currentProvider.id) {
-                            errorMessage = error.description
-                            isShowingErrorAlert.toggle()
-                        }
-                    case .subscribed:
-                        if let error = customerStore.unsubscribeProvider(providerId: providerStore.currentProvider.id) {
-                            errorMessage = error.description
-                            isShowingErrorAlert.toggle()
-                        }
-                    }
-                    subscribeStatus.toggle()
-                    isShowingSubscribeConfirmAlert.toggle()
-                }
-                
-                Button("돌아가기", role: .cancel) {
-                    isShowingSubscribeConfirmAlert.toggle()
-                }
-            })
-            .alert("오류", isPresented: $isShowingErrorAlert, actions: {
-                Button("확인") {
-                    errorMessage = ""
-                    isShowingErrorAlert.toggle()
-                }
-            }, message: {
-                Text(errorMessage)
-            })
-            .onAppear(perform: {
-                subscribeStatus = customerStore.didSubscriptionProvider(providerStore.currentProvider) ? SubscribeStatus.subscribed : SubscribeStatus.unsubscribed
-            })
             .padding()
             .navigationTitle(providerStore.currentProvider.name)
             .navigationBarTitleDisplayMode(.inline)

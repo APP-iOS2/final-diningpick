@@ -13,7 +13,7 @@ struct ContentView: View {
     @StateObject var customerStore: CustomerStore = .init()
     @StateObject var providerStore: ProviderStore = .init()
 
-    @State private var isLoading: Bool = false
+    @State private var isLoading: Bool = true
 
     var body: some View {
         if isLoading {
@@ -37,15 +37,11 @@ struct ContentView: View {
 
             ProviderTabView()
                 .environmentObject(accountStore)
-                .environmentObject(customerStore)
                 .environmentObject(providerStore)
 
             // TODO: 점주 로그인 화면, 게시글 작성 구현, 파이어베이스 연동 완료
 //            ProviderInformation(provider: Provider.sampleSimpleData)
 //                .environmentObject(ProviderStore())
-            
-//            ProviderWriteArticleView()
-//                .environmentObject(<#T##T#>)
         }
     }
 }

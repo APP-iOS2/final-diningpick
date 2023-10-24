@@ -104,6 +104,7 @@ struct Category: Codable {
 
     var picked: String
     static let pickable: [String] = ["전체", "한식", "중식", "일식", "분식", "양식", "카페", "패스트푸드"]
+    static let locationPickable: [String] = ["한식", "중식", "일식", "분식", "양식", "카페", "패스트푸드"]
 }
 
 enum Sorting {

@@ -18,6 +18,8 @@ class ProviderStore: ObservableObject {
         // TODO: 파베 연동 시 currentProvider, providers 업데이트
         currentProvider = .sampleSimpleData
         providers = Provider.sampleData
+        
+        debugPrint(currentProvider)
     }
     
     func addProvider(_ provider: Provider) {

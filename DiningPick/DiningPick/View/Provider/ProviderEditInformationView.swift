@@ -33,6 +33,13 @@ struct ProviderEditInformationView: View {
     @State private var addressCity: String = City.pickable["전체"]![0]
     @State private var addressDetail: String = ""
     @State private var category: String = Category.pickable[0]
+    
+    // Picker에서 쓸 목록
+    @State private var provinceList: [String] = []
+    @State private var cityList: [String] = []
+    @State private var categoryList: [String] = []
+    
+    
     // 전화번호 항목
     @StateObject var phoneFirstNumber: PhoneNumberStore = .init(place: .first)
     @StateObject var phoneSecondNumber: PhoneNumberStore = .init(place: .second)
@@ -108,6 +115,15 @@ struct ProviderEditInformationView: View {
                     phoneSecondNumber.value = segments[1]
                     phoneThirdNumber.value = segments[2]
                 }
+                
+                // TO DO: provinceList, cityList 지역 비어있는 이슈 해결
+                provinceList = movePickedElementToFirst(element: addressProvince, arr: Province.locationPickable)
+                cityList = movePickedElementToFirst(element: addressCity, arr: City.locationPickable[addressProvince] ?? [])
+                categoryList = movePickedElementToFirst(element: category, arr: Category.locationPickable)
+                
+                debugPrint(provinceList)
+                debugPrint(cityList)
+                debugPrint(categoryList)
             }
             .sheet(isPresented: $isShowingPickerSheet, content: {
                 NavigationStack {
@@ -115,7 +131,7 @@ struct ProviderEditInformationView: View {
                         switch currentPicker {
                         case .province:
                             Picker("지역 선택", selection: $searchOptionStore.option.location.province.picked, content: {
-                                ForEach(Province.locationPickable, id: \.self) { item in
+                                ForEach(provinceList, id: \.self) { item in
                                     Text("\(item)")
                                 }
                             })
@@ -126,24 +142,17 @@ struct ProviderEditInformationView: View {
                             
                         case .city:
                             Picker("시/구 선택", selection: $searchOptionStore.option.location.city.picked, content: {
-                                ForEach(
-                                    City.locationPickable[searchOptionStore.option.location.province.picked] ?? [], id: \.self)
-                                {
-                                    item in Text("\(item)")
+                                ForEach(cityList, id: \.self) {
+                                    item in 
+                                    Text("\(item)")
                                 }
-                                
-//                                ForEach(
-//                                    navigatedFrom != .providerLogin ? City.pickable[searchOptionStore.option.location.province.picked] :
-//                                        City.locationPickable[searchOptionStore.option.location.province.picked] ?? [], id: \.self)
-//                                {
-//                                    item in Text("\(item)")
-//                                }
                             })
                             .pickerStyle(WheelPickerStyle())
                             
                         case .category:
                             Picker("맛집 카테고리 선택", selection: $searchOptionStore.option.location.category.picked, content: {
-                                ForEach(Category.pickable, id: \.self) { item in
+                                ForEach(categoryList, id: \.self) {
+                                    item in 
                                     Text("\(item)")
                                 }
                             })
@@ -162,6 +171,7 @@ struct ProviderEditInformationView: View {
                 }
                 .presentationDetents([.height(250.0)])
             })
+
             .alert("저장하시겠습니까?", isPresented: $isShowingConfirmAlert) {
                 Button("저장") {
                     // 뷰모델 저장
@@ -169,13 +179,12 @@ struct ProviderEditInformationView: View {
                     providerStore.currentProvider.location = searchOptionStore.option.location
                     providerStore.currentProvider.time = time
                     providerStore.currentProvider.phoneNumber = phoneNumber
-//                    guard let oldValue = providerStore.updateProvider(self.provider) else {
-//                        print("오류 발생: \(providerStore.currentProvider.id) Provider 인스턴스가 없습니다.")
-//                        isShowingConfirmAlert.toggle()
-//                        return
-//                    }
                     
-//                    debugPrint(self.provider)
+                    guard let oldValue = providerStore.updateProvider(providerStore.currentProvider) else {
+                        print("오류 발생: \(providerStore.currentProvider.id) Provider 인스턴스가 없습니다.")
+                        isShowingConfirmAlert.toggle()
+                        return
+                    }
                     
                     // alert 닫고 현재 화면을 수정 화면에서 전환
                     currentScreen.toggle()
@@ -277,7 +286,9 @@ struct ProviderEditInformationView: View {
                     .fontWeight(.heavy)
                 
                 Button {
-                    currentPicker = .category
+                    if currentPicker == .category {
+                        isShowingPickerSheet.toggle()
+                    }
                 } label: {
                     HStack {
                         Image(systemName: "arrowtriangle.down.fill")
@@ -313,9 +324,6 @@ struct ProviderEditInformationView: View {
                         }
                         
                     DatePicker("닫는 시간", selection: $closingTime, in: openingTime..., displayedComponents: .hourAndMinute)
-//                        .onChange(of: closingTime) {
-//                            breakEndTime = closingTime
-//                        }
                         
                     DatePicker("브레이크타임 시작", selection: $breakStartTime, in: openingTime..., displayedComponents: .hourAndMinute)
                         
@@ -335,6 +343,9 @@ struct ProviderEditInformationView: View {
                         .bold()
                     Spacer()
                     Button {
+                        if currentPicker == .province {
+                            isShowingPickerSheet.toggle()
+                        }
                         currentPicker = .province
                     } label: {
                         HStack {
@@ -357,6 +368,9 @@ struct ProviderEditInformationView: View {
                         .bold()
                     Spacer()
                     Button {
+                        if currentPicker == .city {
+                            isShowingPickerSheet.toggle()
+                        }
                         currentPicker = .city
                     } label: {
                         HStack {
@@ -448,6 +462,22 @@ struct ProviderEditInformationView: View {
     private func slicingBehindOfLabel(from string: String) -> String {
         let tokens = string.split(separator: " ")
         return tokens[1 ..< tokens.count].joined(separator: " ")
+    }
+    
+    // NOTE: 제너릭 함수에서 매개변수에 프로토콜 적용하기
+    // -> <`자료형`: `프로토콜`> 형태로 적용하면 된다.
+    func movePickedElementToFirst<V: Equatable>(element: V, arr: [V]) -> [V] {
+        guard let index = arr.firstIndex(where: {
+            $0 == element
+        }) else {
+            return []
+        }
+            
+        var ret: [V] = []
+        ret.append(arr[index])
+        ret.append(contentsOf: arr.prefix(index))
+        ret.append(contentsOf: arr.suffix(arr.count - index - 1))
+        return ret
     }
 }
 

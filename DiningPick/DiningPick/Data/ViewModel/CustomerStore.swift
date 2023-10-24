@@ -38,12 +38,8 @@ class CustomerStore: ObservableObject {
         if customer.preferences.favoriteProviders.contains(providerId) {
             return .duplicate
         }
-        debugPrint(customer.preferences.favoriteProviders)
-        debugPrint(customer.preferences.favoriteProviders.count)
         // 매장 구독 추가하여 완료
         customer.preferences.favoriteProviders.append(providerId)
-        debugPrint(customer.preferences.favoriteProviders)
-        debugPrint(customer.preferences.favoriteProviders.count)
         return nil
     }
     
@@ -54,12 +50,8 @@ class CustomerStore: ObservableObject {
             return .doNotExist
         }
         
-        debugPrint(customer.preferences.favoriteProviders)
-        debugPrint(customer.preferences.favoriteProviders.count)
         // 매장 구독 추가하여 완료
         customer.preferences.favoriteProviders.remove(at: index)
-        debugPrint(customer.preferences.favoriteProviders)
-        debugPrint(customer.preferences.favoriteProviders.count)
         return nil
     }
     

@@ -33,7 +33,6 @@ struct CustomerFeedView: View {
             }
             .onAppear {
                 articles = providerStore.getArticlesWrittenBySubscribedProviders(ids: customerStore.customer.preferences.favoriteProviders)
-                debugPrint(articles)
             }
             .refreshable {
                 // TODO: 파베 연동시 fetchData() 넣기
