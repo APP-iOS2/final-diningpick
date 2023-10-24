@@ -22,7 +22,7 @@ struct CustomerFeedView: View {
                     ForEach(articles) { article in
                         // TODO: 카드뷰로 분리하기
                         NavigationLink {
-                            ProviderMainPageView( navigatedFrom: .navigationLink)
+                            CustomerStoreMainView(provider: providerStore.getProviderByArticleProviderId(providerId: article.providerId), navigatedFrom: .navigationLink)
                         } label: {
                             CustomerFeedCardView(article: article)
                         }

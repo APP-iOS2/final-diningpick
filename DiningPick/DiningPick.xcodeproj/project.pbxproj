@@ -29,6 +29,7 @@
 		61AF77362AE62EB00099FE90 /* CustomerSelectSearchOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61AF77352AE62EB00099FE90 /* CustomerSelectSearchOptionView.swift */; };
 		61AF77382AE668DB0099FE90 /* CustomerFeedCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61AF77372AE668DB0099FE90 /* CustomerFeedCardView.swift */; };
 		61AF773A2AE781820099FE90 /* ProviderNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61AF77392AE781820099FE90 /* ProviderNotificationView.swift */; };
+		61AF773C2AE79B430099FE90 /* CustomerStoreMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61AF773B2AE79B430099FE90 /* CustomerStoreMainView.swift */; };
 		61E0B8E42AD691E8003375EC /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E0B8E32AD691E8003375EC /* Customer.swift */; };
 		61E0B8E62AD69866003375EC /* CustomerSubscribeProviderListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E0B8E52AD69866003375EC /* CustomerSubscribeProviderListView.swift */; };
 		61E0B8E82AD6994A003375EC /* CustomerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E0B8E72AD6994A003375EC /* CustomerStore.swift */; };
@@ -103,6 +104,7 @@
 		61AF77352AE62EB00099FE90 /* CustomerSelectSearchOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSelectSearchOptionView.swift; sourceTree = "<group>"; };
 		61AF77372AE668DB0099FE90 /* CustomerFeedCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerFeedCardView.swift; sourceTree = "<group>"; };
 		61AF77392AE781820099FE90 /* ProviderNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderNotificationView.swift; sourceTree = "<group>"; };
+		61AF773B2AE79B430099FE90 /* CustomerStoreMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerStoreMainView.swift; sourceTree = "<group>"; };
 		61E0B8E32AD691E8003375EC /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 		61E0B8E52AD69866003375EC /* CustomerSubscribeProviderListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSubscribeProviderListView.swift; sourceTree = "<group>"; };
 		61E0B8E72AD6994A003375EC /* CustomerStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerStore.swift; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 				61E0B8E52AD69866003375EC /* CustomerSubscribeProviderListView.swift */,
 				FE91E2652AD3F68900A39BCE /* CustomerStorePostingView.swift */,
 				61AF77352AE62EB00099FE90 /* CustomerSelectSearchOptionView.swift */,
+				61AF773B2AE79B430099FE90 /* CustomerStoreMainView.swift */,
 			);
 			path = StoreList;
 			sourceTree = "<group>";
@@ -547,6 +550,7 @@
 				61AF77322AE50EB10099FE90 /* PhoneNumberTextField.swift in Sources */,
 				FEF4C7A82AD7CD6100DC6A8D /* FeedBackCard.swift in Sources */,
 				FE2EC6DA2ACFE63600D871E6 /* SecondSignupProviderView.swift in Sources */,
+				61AF773C2AE79B430099FE90 /* CustomerStoreMainView.swift in Sources */,
 				61AF77382AE668DB0099FE90 /* CustomerFeedCardView.swift in Sources */,
 				61E0B8E82AD6994A003375EC /* CustomerStore.swift in Sources */,
 				FEF4C7A62AD7C87F00DC6A8D /* CustomerFeedBackView.swift in Sources */,

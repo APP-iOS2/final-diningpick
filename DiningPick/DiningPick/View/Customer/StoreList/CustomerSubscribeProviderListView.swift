@@ -34,7 +34,7 @@ struct CustomerSubscribeProviderListView: View {
                 List {
                     ForEach(providerStore.getProvidersByIDs(customerStore.customer.preferences.favoriteProviders)) { provider in
                         NavigationLink {
-                            ProviderMainPageView( navigatedFrom: .navigationLink)
+                            CustomerStoreMainView(provider: provider, navigatedFrom: .navigationLink)
                         } label: {
                             ProviderCardView(provider: provider)
                         }

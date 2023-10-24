@@ -23,13 +23,13 @@ struct ProviderTabView: View {
     
     var body: some View {
         TabView(selection: $currentIndex) {
-            ProviderMainPageView(navigatedFrom: .providerLogin)
+            ProviderMainPageView()
                 .tabItem {
                     Image(systemName: "house.fill")
                     Text("홈")
                 }.tag(1)
                 
-            ProviderEditInformationView(navigatedFrom: .providerLogin)
+            ProviderEditInformationView()
                 .tabItem {
                     Image(systemName: "list.bullet")
                     Text("가게 정보")

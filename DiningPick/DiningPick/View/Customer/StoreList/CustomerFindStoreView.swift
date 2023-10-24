@@ -127,11 +127,17 @@ struct CustomerFindStoreView: View {
                     VStack {
                         ForEach(filteredProviders) { provider in
                             Button {
-                                isShowingProviderSheet.toggle()
-                                pickedProvider = provider
+                                if pickedProvider == provider {
+                                    isShowingProviderSheet.toggle()
+                                } else {
+                                    pickedProvider = provider
+                                }
                             } label: {
                                 ProviderCardView(provider: provider)
                             }
+                            .onChange(of: pickedProvider, {
+                                isShowingProviderSheet.toggle()
+                            })
                             .buttonStyle(.plain)
                         }
                     }
@@ -148,7 +154,7 @@ struct CustomerFindStoreView: View {
             // -> if let ~~ 구문으로 nil 검사하지 말고, 그냥 뷰를 @Binding 래퍼 씌워서 넘기자
             // 그러면 늦게 전달되더라도 그 뒤에 바로 값이 전달된다.
             .sheet(isPresented: $isShowingProviderSheet, content: {
-                ProviderMainPageView(navigatedFrom: .sheet)
+                CustomerStoreMainView(provider: pickedProvider, navigatedFrom: .sheet)
             })
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

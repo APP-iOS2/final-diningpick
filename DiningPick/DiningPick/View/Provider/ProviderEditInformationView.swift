@@ -17,8 +17,6 @@ struct ProviderEditInformationView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var providerStore: ProviderStore
     
-    var navigatedFrom: NavigatedFrom
-    
     @StateObject private var searchOptionStore: SearchOptionStore = .init()
     @State private var currentScreen: CurrentScreen = .display
     @State private var currentPicker: CurrentPicker = .category
@@ -81,15 +79,13 @@ struct ProviderEditInformationView: View {
                 }
             }
             .toolbar {
-                if navigatedFrom != .providerLogin {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button {
-                            dismiss()
-                        } label: {
-                            HStack {
-                                Image(systemName: "chevron.backward")
-                                Text("홈")
-                            }
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        HStack {
+                            Image(systemName: "chevron.backward")
+                            Text("홈")
                         }
                     }
                 }
@@ -119,7 +115,7 @@ struct ProviderEditInformationView: View {
                         switch currentPicker {
                         case .province:
                             Picker("지역 선택", selection: $searchOptionStore.option.location.province.picked, content: {
-                                ForEach(navigatedFrom != .providerLogin ? Province.pickable : Province.locationPickable, id: \.self) { item in
+                                ForEach(Province.locationPickable, id: \.self) { item in
                                     Text("\(item)")
                                 }
                             })
@@ -456,6 +452,6 @@ struct ProviderEditInformationView: View {
 }
 
 #Preview {
-    ProviderEditInformationView(navigatedFrom: .providerLogin)
+    ProviderEditInformationView()
         .environmentObject(ProviderStore())
 }

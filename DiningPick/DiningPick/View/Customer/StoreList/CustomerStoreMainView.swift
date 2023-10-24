@@ -1,5 +1,5 @@
 //
-//  ProviderMainPageView.swift
+//  CustomerStoreMainView.swift
 //  DiningPick
 //
 //  Created by 한현민 on 10/19/23.
@@ -7,7 +7,12 @@
 
 import SwiftUI
 
-struct ProviderMainPageView: View {
+enum NavigatedFrom {
+    case navigationLink
+    case sheet
+}
+
+struct CustomerStoreMainView: View {
     enum TabInfo: CaseIterable {
         case left
         case center
@@ -57,6 +62,9 @@ struct ProviderMainPageView: View {
         }
     }
     
+    var provider: Provider
+    var navigatedFrom: NavigatedFrom
+    
     @State var subscribeStatus: SubscribeStatus = .unsubscribed
     
     @EnvironmentObject private var customerStore: CustomerStore
@@ -88,16 +96,46 @@ struct ProviderMainPageView: View {
                 .padding(.top)
                 .refreshable {}
             }
+            .toolbar {
+                if subscribeStatus == .unsubscribed {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            isShowingSubscribeConfirmAlert.toggle()
+                        } label: {
+                            Text("구독")
+                        }
+                    }
+                            
+                } else if subscribeStatus == .subscribed {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            isShowingSubscribeConfirmAlert.toggle()
+                        } label: {
+                            Text("구독 취소")
+                        }
+                    }
+                }
+                
+                ToolbarItem(placement: .topBarLeading) {
+                    if navigatedFrom == .sheet {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Text("닫기")
+                        }
+                    }
+                }
+            }
             .alert(subscribeStatus.message, isPresented: $isShowingSubscribeConfirmAlert, actions: {
                 Button(subscribeStatus.action) {
                     switch subscribeStatus {
                     case .unsubscribed:
-                        if let error = customerStore.subscribeProvider(providerId: providerStore.currentProvider.id) {
+                        if let error = customerStore.subscribeProvider(providerId: provider.id) {
                             errorMessage = error.description
                             isShowingErrorAlert.toggle()
                         }
                     case .subscribed:
-                        if let error = customerStore.unsubscribeProvider(providerId: providerStore.currentProvider.id) {
+                        if let error = customerStore.unsubscribeProvider(providerId: provider.id) {
                             errorMessage = error.description
                             isShowingErrorAlert.toggle()
                         }
@@ -119,11 +157,14 @@ struct ProviderMainPageView: View {
                 Text(errorMessage)
             })
             .onAppear(perform: {
-                subscribeStatus = customerStore.didSubscriptionProvider(providerStore.currentProvider) ? SubscribeStatus.subscribed : SubscribeStatus.unsubscribed
+                subscribeStatus = customerStore.didSubscriptionProvider(provider) ? SubscribeStatus.subscribed : SubscribeStatus.unsubscribed
             })
             .padding()
-            .navigationTitle(providerStore.currentProvider.name)
+            .navigationTitle(provider.name)
             .navigationBarTitleDisplayMode(.inline)
+        }
+        .onAppear {
+            debugPrint(provider.id)
         }
     }
     
@@ -165,11 +206,11 @@ struct ProviderMainPageView: View {
                     .frame(width: 50, height: 50)
                     .clipShape(Circle())
                 
-                Text(providerStore.currentProvider.name)
+                Text(provider.name)
                     .font(.title)
                     .fontWeight(.heavy)
                 
-                Text(providerStore.currentProvider.description)
+                Text(provider.description)
                     .font(.footnote)
                     .foregroundStyle(.gray)
             }
@@ -184,21 +225,21 @@ struct ProviderMainPageView: View {
                         Text("여는 시간")
                             .bold()
                         Spacer()
-                        Text(slicingBehindOfLabel(from: providerStore.currentProvider.time.operatingTimeString))
+                        Text(slicingBehindOfLabel(from: provider.time.operatingTimeString))
                     }
                     
                     HStack {
                         Text("주문 마감")
                             .bold()
                         Spacer()
-                        Text(slicingBehindOfLabel(from: providerStore.currentProvider.time.lastOrderTimeString))
+                        Text(slicingBehindOfLabel(from: provider.time.lastOrderTimeString))
                     }
                     
                     HStack {
                         Text("브레이크타임")
                             .bold()
                         Spacer()
-                        Text(slicingBehindOfLabel(from: providerStore.currentProvider.time.breakTimeString))
+                        Text(slicingBehindOfLabel(from: provider.time.breakTimeString))
                     }
                 }
                 .padding(.horizontal)
@@ -209,7 +250,7 @@ struct ProviderMainPageView: View {
                     .font(.title2)
                     .bold()
 
-                Text(providerStore.currentProvider.location.fullAddress)
+                Text(provider.location.fullAddress)
             }
             
             VStack(spacing: 12) {
@@ -217,14 +258,14 @@ struct ProviderMainPageView: View {
                     .font(.title2)
                     .bold()
                 
-                Text(providerStore.currentProvider.phoneNumber)
+                Text(provider.phoneNumber)
             }
         }
     }
     
     @ViewBuilder
     private func NoticeView() -> some View {
-        ForEach(providerStore.currentProvider.noticeArticles) { article in
+        ForEach(provider.noticeArticles) { article in
             VStack(spacing: 10) {
                 // 게시글 CardView 부분
                 HStack {
@@ -268,7 +309,7 @@ struct ProviderMainPageView: View {
     
     @ViewBuilder
     private func MenuView() -> some View {
-        ForEach(providerStore.currentProvider.menuArticles) { article in
+        ForEach(provider.menuArticles) { article in
             VStack(spacing: 10) {
                 // 게시글 CardView 부분
                 HStack {
@@ -344,7 +385,7 @@ struct ProviderMainPageView: View {
 }
 
 #Preview {
-    ProviderMainPageView()
+    CustomerStoreMainView(provider: .sampleSimpleData, navigatedFrom: .sheet)
         .environmentObject(CustomerStore())
         .environmentObject(ProviderStore())
 }
