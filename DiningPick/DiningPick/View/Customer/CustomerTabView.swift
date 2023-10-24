@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct CustomerTabView: View {
+    @EnvironmentObject var accountStore: AccountStore
     @EnvironmentObject var customerStore: CustomerStore
     
     @State private var currentIndex: Int = 1
-    @Environment(\.dismiss) private var dismiss
     
     // CustomerSubscribeProviderListView에서 사용
     @State private var isShowingAddSheet: Bool = false

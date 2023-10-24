@@ -17,10 +17,10 @@ struct ProviderEditInformationView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var providerStore: ProviderStore
     
-    @State var provider: Provider
+    var navigatedFrom: NavigatedFrom
     
     @StateObject private var searchOptionStore: SearchOptionStore = .init()
-    @State private var currentScreen: CurrentScreen = .edit
+    @State private var currentScreen: CurrentScreen = .display
     @State private var currentPicker: CurrentPicker = .category
     @State private var isShowingPickerSheet: Bool = false
     
@@ -81,30 +81,32 @@ struct ProviderEditInformationView: View {
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        HStack {
-                            Image(systemName: "chevron.backward")
-                            Text("홈")
+                if navigatedFrom != .providerLogin {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            HStack {
+                                Image(systemName: "chevron.backward")
+                                Text("홈")
+                            }
                         }
                     }
                 }
             }
             .onAppear {
-                description = provider.description
-                openingTime = provider.time.openTime
-                closingTime = provider.time.closeTime
-                lastOrderTime = provider.time.lastOrderTime
-                breakStartTime = provider.time.breakTimeStart
-                breakEndTime = provider.time.breakTimeEnd
-                addressProvince = provider.location.province.picked
-                addressCity = provider.location.city.picked
-                addressDetail = provider.location.detail ?? ""
-                category = provider.location.category.picked
+                description = providerStore.currentProvider.description
+                openingTime = providerStore.currentProvider.time.openTime
+                closingTime = providerStore.currentProvider.time.closeTime
+                lastOrderTime = providerStore.currentProvider.time.lastOrderTime
+                breakStartTime = providerStore.currentProvider.time.breakTimeStart
+                breakEndTime = providerStore.currentProvider.time.breakTimeEnd
+                addressProvince = providerStore.currentProvider.location.province.picked
+                addressCity = providerStore.currentProvider.location.city.picked
+                addressDetail = providerStore.currentProvider.location.detail ?? ""
+                category = providerStore.currentProvider.location.category.picked
                 
-                let segments = provider.phoneNumber.components(separatedBy: "-")
+                let segments = providerStore.currentProvider.phoneNumber.components(separatedBy: "-")
                 if segments.count == 3 {
                     phoneFirstNumber.value = segments[0]
                     phoneSecondNumber.value = segments[1]
@@ -117,7 +119,7 @@ struct ProviderEditInformationView: View {
                         switch currentPicker {
                         case .province:
                             Picker("지역 선택", selection: $searchOptionStore.option.location.province.picked, content: {
-                                ForEach(Province.pickable, id: \.self) { item in
+                                ForEach(navigatedFrom != .providerLogin ? Province.pickable : Province.locationPickable, id: \.self) { item in
                                     Text("\(item)")
                                 }
                             })
@@ -128,9 +130,18 @@ struct ProviderEditInformationView: View {
                             
                         case .city:
                             Picker("시/구 선택", selection: $searchOptionStore.option.location.city.picked, content: {
-                                ForEach(City.pickable[searchOptionStore.option.location.province.picked] ?? [], id: \.self) { item in
-                                    Text("\(item)")
+                                ForEach(
+                                    City.locationPickable[searchOptionStore.option.location.province.picked] ?? [], id: \.self)
+                                {
+                                    item in Text("\(item)")
                                 }
+                                
+//                                ForEach(
+//                                    navigatedFrom != .providerLogin ? City.pickable[searchOptionStore.option.location.province.picked] :
+//                                        City.locationPickable[searchOptionStore.option.location.province.picked] ?? [], id: \.self)
+//                                {
+//                                    item in Text("\(item)")
+//                                }
                             })
                             .pickerStyle(WheelPickerStyle())
                             
@@ -158,23 +169,21 @@ struct ProviderEditInformationView: View {
             .alert("저장하시겠습니까?", isPresented: $isShowingConfirmAlert) {
                 Button("저장") {
                     // 뷰모델 저장
-                    self.provider.description = description
-                    self.provider.location = searchOptionStore.option.location
-                    self.provider.time = time
-                    self.provider.phoneNumber = phoneNumber
-                    guard let oldValue = providerStore.updateProvider(self.provider) else {
-                        print("오류 발생: \(provider.id) Provider 인스턴스가 없습니다.")
-                        isShowingConfirmAlert.toggle()
-                        return
-                    }
+                    providerStore.currentProvider.description = description
+                    providerStore.currentProvider.location = searchOptionStore.option.location
+                    providerStore.currentProvider.time = time
+                    providerStore.currentProvider.phoneNumber = phoneNumber
+//                    guard let oldValue = providerStore.updateProvider(self.provider) else {
+//                        print("오류 발생: \(providerStore.currentProvider.id) Provider 인스턴스가 없습니다.")
+//                        isShowingConfirmAlert.toggle()
+//                        return
+//                    }
                     
-                    debugPrint(oldValue)
-                    debugPrint(self.provider)
+//                    debugPrint(self.provider)
                     
                     // alert 닫고 현재 화면을 수정 화면에서 전환
                     currentScreen.toggle()
                     isShowingConfirmAlert.toggle()
-//                    currentScreen.toggle()
                 }
                 .foregroundStyle(Color.themeAccentColor)
                 .bold()
@@ -199,11 +208,11 @@ struct ProviderEditInformationView: View {
                     .frame(width: 50, height: 50)
                     .clipShape(Circle())
                 
-                Text(provider.name)
+                Text(providerStore.currentProvider.name)
                     .font(.title)
                     .fontWeight(.heavy)
                 
-                Text(provider.description)
+                Text(providerStore.currentProvider.description)
                     .font(.footnote)
                     .foregroundStyle(.gray)
             }
@@ -218,21 +227,21 @@ struct ProviderEditInformationView: View {
                         Text("여는 시간")
                             .bold()
                         Spacer()
-                        Text(slicingBehindOfLabel(from: provider.time.operatingTimeString))
+                        Text(slicingBehindOfLabel(from: providerStore.currentProvider.time.operatingTimeString))
                     }
                     
                     HStack {
                         Text("주문 마감")
                             .bold()
                         Spacer()
-                        Text(slicingBehindOfLabel(from: provider.time.lastOrderTimeString))
+                        Text(slicingBehindOfLabel(from: providerStore.currentProvider.time.lastOrderTimeString))
                     }
                     
                     HStack {
                         Text("브레이크타임")
                             .bold()
                         Spacer()
-                        Text(slicingBehindOfLabel(from: provider.time.breakTimeString))
+                        Text(slicingBehindOfLabel(from: providerStore.currentProvider.time.breakTimeString))
                     }
                 }
                 .padding(.horizontal)
@@ -243,7 +252,7 @@ struct ProviderEditInformationView: View {
                     .font(.title2)
                     .bold()
 
-                Text(provider.location.fullAddress)
+                Text(providerStore.currentProvider.location.fullAddress)
             }
             
             VStack(spacing: 12) {
@@ -251,7 +260,7 @@ struct ProviderEditInformationView: View {
                     .font(.title2)
                     .bold()
                 
-                Text(provider.phoneNumber)
+                Text(providerStore.currentProvider.phoneNumber)
             }
         }
     }
@@ -267,13 +276,12 @@ struct ProviderEditInformationView: View {
                     .frame(width: 50, height: 50)
                     .clipShape(Circle())
                 
-                Text(provider.name)
+                Text(providerStore.currentProvider.name)
                     .font(.title)
                     .fontWeight(.heavy)
                 
                 Button {
                     currentPicker = .category
-                    isShowingPickerSheet.toggle()
                 } label: {
                     HStack {
                         Image(systemName: "arrowtriangle.down.fill")
@@ -282,6 +290,9 @@ struct ProviderEditInformationView: View {
                         Text("\(searchOptionStore.option.location.category.picked)")
                             .foregroundStyle(Color.primary)
                     }
+                }
+                .onChange(of: currentPicker) {
+                    isShowingPickerSheet.toggle()
                 }
                 .optionPickerButton()
                 .frame(width: Dimensions.pickerButtonWidth, height: Dimensions.pickerButtonHeight)
@@ -329,7 +340,6 @@ struct ProviderEditInformationView: View {
                     Spacer()
                     Button {
                         currentPicker = .province
-                        isShowingPickerSheet.toggle()
                     } label: {
                         HStack {
                             Image(systemName: "arrowtriangle.down.fill")
@@ -338,6 +348,9 @@ struct ProviderEditInformationView: View {
                             Text("\(searchOptionStore.option.location.province.picked)")
                                 .foregroundStyle(Color.primary)
                         }
+                    }
+                    .onChange(of: currentPicker) {
+                        isShowingPickerSheet.toggle()
                     }
                     .optionPickerButton()
                     .frame(width: Dimensions.pickerButtonWidth, height: Dimensions.pickerButtonHeight)
@@ -349,7 +362,6 @@ struct ProviderEditInformationView: View {
                     Spacer()
                     Button {
                         currentPicker = .city
-                        isShowingPickerSheet.toggle()
                     } label: {
                         HStack {
                             Image(systemName: "arrowtriangle.down.fill")
@@ -359,6 +371,9 @@ struct ProviderEditInformationView: View {
                                 .foregroundStyle(Color.primary)
                         }
                     }
+                    .onChange(of: currentPicker) {
+                        isShowingPickerSheet.toggle()
+                    }
                     .optionPickerButton()
                     .frame(width: Dimensions.pickerButtonWidth, height: Dimensions.pickerButtonHeight)
                 }
@@ -367,7 +382,7 @@ struct ProviderEditInformationView: View {
                     Text("상세 주소")
                         .padding(.trailing)
                     Spacer()
-                    TextField(provider.location.detail ?? "", text: $searchOptionStore.option.location.detail.toUnwrapped(defaultValue: ""))
+                    TextField(providerStore.currentProvider.location.detail ?? "", text: $searchOptionStore.option.location.detail.toUnwrapped(defaultValue: ""))
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .frame(minWidth: 0, maxWidth: .infinity)
                 }
@@ -441,6 +456,6 @@ struct ProviderEditInformationView: View {
 }
 
 #Preview {
-    ProviderEditInformationView(provider: .sampleSimpleData)
+    ProviderEditInformationView(navigatedFrom: .providerLogin)
         .environmentObject(ProviderStore())
 }

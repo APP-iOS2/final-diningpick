@@ -148,7 +148,7 @@ struct CustomerFindStoreView: View {
             // -> if let ~~ 구문으로 nil 검사하지 말고, 그냥 뷰를 @Binding 래퍼 씌워서 넘기자
             // 그러면 늦게 전달되더라도 그 뒤에 바로 값이 전달된다.
             .sheet(isPresented: $isShowingProviderSheet, content: {
-                ProviderMainPageView(provider: $pickedProvider, navigatedFrom: .sheet)
+                ProviderMainPageView(navigatedFrom: .sheet)
             })
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

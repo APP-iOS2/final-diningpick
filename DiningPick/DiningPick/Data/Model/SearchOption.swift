@@ -43,6 +43,10 @@ struct Province: Codable, Equatable {
     
     var picked: String
     static let pickable: [String] = ["전체", "서울", "경기", "인천", "대전", "세종", "충남", "충북", "부산", "대구", "경북", "경남", "광주", "전북", "전남", "제주"]
+    
+    static var locationPickable: [String] {
+        Array(Province.pickable[1..<Province.pickable.count])
+    }
 }
 
 struct City: Codable {
@@ -72,6 +76,22 @@ struct City: Codable {
         "전남": ["전체", "강진군", "고흥군", "곡성군", "광양시", "구례군", "나주시", "무안군", "목포시", "보성군", "순천시", "신안군", "여수시", "영광군", "영암군", "장흥군", "장성군", "진도군", "함평군"],
         "제주": ["전체", "제주시", "서귀포시"]
     ]
+    
+    static var locationPickable: [String: [String]] {
+        var ret: [String: [String]] = City.pickable
+                
+        for key in ret.keys {
+            if ret[key]![0] == "전체" {
+                return [key: [key]]
+            } else {
+                ret[key] = Array(ret[key]![1..<ret[key]!.count])
+            }
+        }
+        
+        debugPrint(ret)
+        
+        return ret
+    }
 }
 
 struct Category: Codable {

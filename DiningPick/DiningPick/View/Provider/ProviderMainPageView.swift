@@ -8,6 +8,10 @@
 import SwiftUI
 
 enum NavigatedFrom {
+    // 뒤로가기 없는 경우 (점주 로그인 상태)
+    case providerLogin
+    
+    // 뒤로가기 있는 경우
     case navigationLink
     case sheet
 }
@@ -62,7 +66,7 @@ struct ProviderMainPageView: View {
         }
     }
     
-    @Binding var provider: Provider
+//    @Binding var provider: Provider
     var navigatedFrom: NavigatedFrom
     
     @State var subscribeStatus: SubscribeStatus = .unsubscribed
@@ -97,30 +101,34 @@ struct ProviderMainPageView: View {
                 .refreshable {}
             }
             .toolbar {
-                if subscribeStatus == .unsubscribed {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button {
-                            isShowingSubscribeConfirmAlert.toggle()
-                        } label: {
-                            Text("구독")
-                        }
-                    }
-                } else {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button {
-                            isShowingSubscribeConfirmAlert.toggle()
-                        } label: {
-                            Text("구독 취소")
+                ToolbarItem(placement: .topBarTrailing) {
+                    if navigatedFrom != .providerLogin {
+                        if subscribeStatus == .unsubscribed {
+                            Button {
+                                isShowingSubscribeConfirmAlert.toggle()
+                            } label: {
+                                Text("구독")
+                            }
+                            
+                        } else if subscribeStatus == .subscribed {
+                            Button {
+                                isShowingSubscribeConfirmAlert.toggle()
+                            } label: {
+                                Text("구독 취소")
+                            }
                         }
                     }
                 }
                 
                 ToolbarItem(placement: .topBarLeading) {
-                    if navigatedFrom == .sheet { Button {
-                        dismiss()
-                    } label: {
-                        Text("닫기")
-                    }
+                    if navigatedFrom != .providerLogin {
+                        if navigatedFrom == .sheet {
+                            Button {
+                                dismiss()
+                            } label: {
+                                Text("닫기")
+                            }
+                        }
                     }
                 }
             }
@@ -128,12 +136,12 @@ struct ProviderMainPageView: View {
                 Button(subscribeStatus.action) {
                     switch subscribeStatus {
                     case .unsubscribed:
-                        if let error = customerStore.subscribeProvider(providerId: provider.id) {
+                        if let error = customerStore.subscribeProvider(providerId: providerStore.currentProvider.id) {
                             errorMessage = error.description
                             isShowingErrorAlert.toggle()
                         }
                     case .subscribed:
-                        if let error = customerStore.unsubscribeProvider(providerId: provider.id) {
+                        if let error = customerStore.unsubscribeProvider(providerId: providerStore.currentProvider.id) {
                             errorMessage = error.description
                             isShowingErrorAlert.toggle()
                         }
@@ -155,10 +163,10 @@ struct ProviderMainPageView: View {
                 Text(errorMessage)
             })
             .onAppear(perform: {
-                subscribeStatus = customerStore.didSubscriptionProvider(provider) ? SubscribeStatus.subscribed : SubscribeStatus.unsubscribed
+                subscribeStatus = customerStore.didSubscriptionProvider(providerStore.currentProvider) ? SubscribeStatus.subscribed : SubscribeStatus.unsubscribed
             })
             .padding()
-            .navigationTitle(provider.name)
+            .navigationTitle(providerStore.currentProvider.name)
             .navigationBarTitleDisplayMode(.inline)
         }
     }
@@ -201,11 +209,11 @@ struct ProviderMainPageView: View {
                     .frame(width: 50, height: 50)
                     .clipShape(Circle())
                 
-                Text(provider.name)
+                Text(providerStore.currentProvider.name)
                     .font(.title)
                     .fontWeight(.heavy)
                 
-                Text(provider.description)
+                Text(providerStore.currentProvider.description)
                     .font(.footnote)
                     .foregroundStyle(.gray)
             }
@@ -220,21 +228,21 @@ struct ProviderMainPageView: View {
                         Text("여는 시간")
                             .bold()
                         Spacer()
-                        Text(slicingBehindOfLabel(from: provider.time.operatingTimeString))
+                        Text(slicingBehindOfLabel(from: providerStore.currentProvider.time.operatingTimeString))
                     }
                     
                     HStack {
                         Text("주문 마감")
                             .bold()
                         Spacer()
-                        Text(slicingBehindOfLabel(from: provider.time.lastOrderTimeString))
+                        Text(slicingBehindOfLabel(from: providerStore.currentProvider.time.lastOrderTimeString))
                     }
                     
                     HStack {
                         Text("브레이크타임")
                             .bold()
                         Spacer()
-                        Text(slicingBehindOfLabel(from: provider.time.breakTimeString))
+                        Text(slicingBehindOfLabel(from: providerStore.currentProvider.time.breakTimeString))
                     }
                 }
                 .padding(.horizontal)
@@ -245,7 +253,7 @@ struct ProviderMainPageView: View {
                     .font(.title2)
                     .bold()
 
-                Text(provider.location.fullAddress)
+                Text(providerStore.currentProvider.location.fullAddress)
             }
             
             VStack(spacing: 12) {
@@ -253,14 +261,14 @@ struct ProviderMainPageView: View {
                     .font(.title2)
                     .bold()
                 
-                Text(provider.phoneNumber)
+                Text(providerStore.currentProvider.phoneNumber)
             }
         }
     }
     
     @ViewBuilder
     private func NoticeView() -> some View {
-        ForEach(provider.noticeArticles) { article in
+        ForEach(providerStore.currentProvider.noticeArticles) { article in
             VStack(spacing: 10) {
                 // 게시글 CardView 부분
                 HStack {
@@ -304,7 +312,7 @@ struct ProviderMainPageView: View {
     
     @ViewBuilder
     private func MenuView() -> some View {
-        ForEach(provider.menuArticles) { article in
+        ForEach(providerStore.currentProvider.menuArticles) { article in
             VStack(spacing: 10) {
                 // 게시글 CardView 부분
                 HStack {
@@ -380,7 +388,7 @@ struct ProviderMainPageView: View {
 }
 
 #Preview {
-    ProviderMainPageView(provider: .constant(.emptyData), navigatedFrom: .sheet)
+    ProviderMainPageView(navigatedFrom: .sheet)
         .environmentObject(CustomerStore())
         .environmentObject(ProviderStore())
 }

@@ -8,6 +8,7 @@
 import Foundation
 
 class ProviderStore: ObservableObject {
+    @Published var currentProvider: Provider = .sampleSimpleData
     @Published var providers: [Provider] = Provider.sampleData
     
     // 고객이 구독한 id들의 목록을 매개변수로 받고,
@@ -44,7 +45,7 @@ class ProviderStore: ObservableObject {
         var ret: [Article] = []
         
         // 구독한 id들을 가지고 구독한 provider 인스턴스들을 가져온다.
-        var providers: [Provider] = getProvidersByIDs(ids)
+        let providers: [Provider] = getProvidersByIDs(ids)
         
         // 각 provider마다 article을 가져온다.
         for provider in providers {
@@ -111,16 +112,16 @@ class ProviderStore: ObservableObject {
         return providers.remove(at: index)
     }
     
-    func updateProvider(_ provider: Provider) -> Provider? {
-        guard let index = providers.firstIndex(where: {
-            $0.id == provider.id
-        }) else {
-            print("Failed to update: object not exists")
-            return nil
-        }
-        
-        let old = providers[index]
-        providers[index] = provider
-        return old
-    }
+//    func updateProvider(_ provider: Provider) -> Provider? {
+//        guard let index = providers.firstIndex(where: {
+//            $0.id == provider.id
+//        }) else {
+//            print("Failed to update: object not exists")
+//            return nil
+//        }
+//        let old = providers[index]
+//        providers[index] = provider
+//        currentProvider = providers[index]
+//        return old
+//    }
 }

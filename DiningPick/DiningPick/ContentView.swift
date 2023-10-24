@@ -12,9 +12,9 @@ struct ContentView: View {
     @StateObject var accountStore: AccountStore = .init()
     @StateObject var customerStore: CustomerStore = .init()
     @StateObject var providerStore: ProviderStore = .init()
-    
+
     @State private var isLoading: Bool = true
-        
+
     var body: some View {
         if !isLoading {
             Image("AppLogo")
@@ -27,11 +27,16 @@ struct ContentView: View {
                     // TO DO: 뷰모델 fetch 이후 isLoading toggle() 호출
                 }
         } else {
-            LoginEmailView()
+//            LoginEmailView()
+//                .environmentObject(accountStore)
+//                .environmentObject(customerStore)
+//                .environmentObject(providerStore)
+
+            ProviderTabView()
                 .environmentObject(accountStore)
                 .environmentObject(customerStore)
                 .environmentObject(providerStore)
-            
+
             // TODO: 점주 로그인 화면, 게시글 작성 구현, 파이어베이스 연동 완료
 //            ProviderInformation(provider: Provider.sampleSimpleData)
 //                .environmentObject(ProviderStore())
